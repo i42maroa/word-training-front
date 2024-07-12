@@ -1,0 +1,30 @@
+@if(definition){
+<div class="container">
+    <button (click)="toggleShowAdditionalInfo()" class="definitionContainer">
+      <h3 class="definition">
+        {{definition.translation}}
+        <span class="definitionType">{{definition.type | definitionTypePipe}}</span>
+      </h3>
+
+      @if(isMoreInfo && !showAdditionalInfo){
+        <button class="additionalInfoButton" (click)="toggleShowAdditionalInfo()">
+          <app-info-svg />
+        </button>
+      }
+    </button>
+
+
+
+  @if(isMoreInfo && showAdditionalInfo){
+    <div class="additionalInfoContainer">
+      @if(definition.info){
+        <p class="info">{{definition.info}}</p>
+      }
+      @for(example of definition.examples; track example.exampleId){
+          <app-example [example]="example"/>
+      }
+    <hr class="separator">
+  </div>
+  }
+</div>
+}

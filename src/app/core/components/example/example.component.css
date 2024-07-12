@@ -1,0 +1,63 @@
+.container{
+  display: flex;
+flex-direction: column;
+background-color: var(--white);
+margin: 5px;
+border-radius: 3px;
+}
+
+.containerHeader{
+  display: flex;
+  justify-content: space-between;
+  border: none;
+  background-color: var(--white);
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+}
+
+
+.additionalInfoButton{
+  width: 24px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.sentence{
+  font-weight: 800;
+}
+
+.sentence,
+.sentenceTranslated,
+.info{
+  padding: 0 10px;
+}
+
+.sentenceTranslated{
+  position: relative;
+}
+
+.sentence::first-letter,
+.sentenceTranslated::first-letter,
+.info::first-letter{
+  text-transform: uppercase;
+}
+
+.info::before{
+  content: '';
+  height: 1px;
+  width: 80%;
+  background-color: var(--orange);
+  position: absolute;
+  margin: auto;
+  top: -15px;
+  left: 0;
+  right: 0;
+}
+
+.info{
+  font-style: italic;
+  position: relative;
+}

@@ -1,0 +1,51 @@
+.container{
+  margin: 0 10px;
+}
+.definitionContainer{
+  display: flex;
+  border: none;
+  background: transparent;
+  margin: auto 0;
+  cursor: pointer;
+  justify-content: space-between;
+}
+
+.definition::first-letter,
+.info::first-letter{
+    text-transform: uppercase;
+}
+
+.definitionType{
+  font-style: italic;
+
+  margin: auto;
+  margin-left: 10px;
+}
+
+.additionalInfoContainer{
+  background-color: var(--blue);
+}
+
+.additionalInfoButton{
+  width: 14px;
+  padding: 0;
+  margin: auto 15px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.containerAdditionalInfo{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.info{
+  padding: 10px;
+}
+.separator{
+  height: 1px;
+  background-color: var(--orange);
+  border: none;
+}
