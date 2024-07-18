@@ -6,6 +6,7 @@
   background: var(--white);
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .modal{
@@ -16,4 +17,11 @@
   bottom: 0;
   margin: auto;
   max-width: 500px;
+}
+
+
+.float_button{
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
 }
