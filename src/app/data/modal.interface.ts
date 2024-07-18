@@ -1,6 +1,6 @@
 
 export interface InterfaceState{
-  showAddButton:boolean,
+  buttons:ButtonsState,
   modal:ModalState
 }
 
@@ -10,13 +10,22 @@ export interface ModalState{
   type: ModalType
 }
 
+export interface ButtonsState{
+  show:boolean;
+  type:ButtonType
+}
+
 
 export type ModalType = RecordOperation ;
 
+export type ButtonType = 'add' ;
 export type RecordOperation = 'new-record' | 'modify-record' | 'delete-record';
 
 export const INTERFACE_INITIAL_STATE:InterfaceState ={
-  showAddButton:false,
+  buttons:{
+    show:true,
+    type:'add'
+  },
   modal:{
     title:"titulo",
     show:false,

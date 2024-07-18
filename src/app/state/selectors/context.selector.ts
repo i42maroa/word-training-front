@@ -12,3 +12,13 @@ export const selecTitleModal = createSelector(
   selectWordsFeature,
   (state:InterfaceState) => state.modal.title
 )
+
+export const selectShowButtons = createSelector(
+  selectWordsFeature,
+  (state:InterfaceState) => state.buttons.show
+)
+
+export const selectTypeButtons = createSelector(
+  selectWordsFeature,
+  (state:InterfaceState) => state.buttons.type
+)
