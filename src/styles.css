@@ -2,14 +2,22 @@
 
 
 :root{
-  --blue:#BBDEF0;
-  --dark-blue:#00A6A6;
-  --yellow: #EFCA08;
-  --orange: #F49F0A;
-  --dark-orange:#F08700;
+  --blue:#0B4F6C;
+  --dark-blue:#083e56;
+  --red: #B80C09;
+  --dark-red:#950b08;
 
-  --white: #fefefe;
-  --grey: #dfdfdf;
+  --white: #FBFBFF;
+  --grey: #9a9a9a;
+  --black: #040F16;
+
+  --primary: var(--red);
+  --primary-dark: var(--dark-red);
+  --secondary: var(--dark-blue);
+  --secondary-dark: var(--blue);
+  --background: var(--white);
+  --font-color: var(--black);
+  --shadow:var(--grey);
 }
 
 
@@ -20,7 +28,10 @@ body {
   font-family: var(--font-base);
   font-size: var(--font-size);
   font-size: 18px;
-  color: var(--brown);
-  background-color: var(--grey);
+  color: var(--font-color);
+  background-color: var(--shadow);
 }
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

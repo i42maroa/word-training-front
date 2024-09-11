@@ -3,7 +3,7 @@
   max-width: 500px;
   margin: 0 auto;
   position: relative;
-  background: var(--white);
+  background: var(--background);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -17,6 +17,9 @@
   bottom: 0;
   margin: auto;
   max-width: 500px;
+  width: 100%;
+  backdrop-filter: blur(10px);
+  background-color: var(--shadow);
 }
 
 

@@ -60,3 +60,17 @@ export const EXAMPLE_RECORD:RecordInterface = {
     }
   ]
 }
+
+
+export const RECORD_TYPE_OPTIONS: {label:string; value:RecordType}[] = [
+  { label: 'Palabra', value: 'WORD' },
+  { label: 'Phrasal Verb', value: 'PHRASAL' },
+  { label: 'Expresión', value: 'EXPRESSION' },
+]
+
+export const DEFINITION_TYPE_OPTIONS: {label:string; value:DefinitionType}[] = [
+  { label: 'Sustantivo', value: 'NOUN' },
+  { label: 'Adjetivo', value: 'ADJECTIVE' },
+  { label: 'Adverbio', value: 'ADVERB' },
+  { label: 'Verbo', value: 'VERB' }
+]

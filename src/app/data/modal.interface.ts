@@ -27,7 +27,7 @@ export const INTERFACE_INITIAL_STATE:InterfaceState ={
     type:'add'
   },
   modal:{
-    title:"titulo",
+    title:"Nuevo registro",
     show:false,
     type:'new-record'
   }

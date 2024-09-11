@@ -5,7 +5,7 @@
 }
 
 .record{
-  background-color: var(--orange);
+  background-color: var(--primary);
   color: var(--white);
   padding: 10px 5px;
 }

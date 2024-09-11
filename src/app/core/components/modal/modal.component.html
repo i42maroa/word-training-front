@@ -1,11 +1,11 @@
 @if (showModal$ | async) {
   <div class="container">
     <div class="modal_container">
-      <div class="modal_close">
-        <span class="title">{{(titleModal$ | async) | uppercase}}</span>
-        <button (click)="closeModal()">X</button>
+      <div class="modalTitle">
+        <span class="title">{{(titleModal$ | async) }}</span>
       </div>
       <div class="modal_body">
+        <app-add-modal/>
         <!-- @switch (typeModal$ | async) {
             @case ('new-word') {<app-word-m-new/>}
             @case ('new-translation') {<app-translation-m-new/>}
