@@ -46,6 +46,6 @@
 }
 .separator{
   height: 1px;
-  background-color: var(--orange);
+  background-color: var(--primary);
   border: none;
 }

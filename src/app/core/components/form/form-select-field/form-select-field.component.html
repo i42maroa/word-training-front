@@ -1,0 +1,8 @@
+<div class="formGroup">
+    <select class="formField" [ngModel]="input" [name]="name" (ngModelChange)="onChange($event)">
+      @for (option of options; track $index) {
+        <option [value]="option.value">{{option.label}}</option>
+      }
+    </select>
+    <label [for]="name" class="formLabel">{{labelText}}</label>
+  </div>

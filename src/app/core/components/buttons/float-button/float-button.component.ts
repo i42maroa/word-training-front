@@ -24,6 +24,6 @@ export class FloatButtonComponent {
   }
 
   dispatchNewWordModal(){
-    this.store.dispatch(showModal({title:"New word"}));
+    this.store.dispatch(showModal({title:"Nuevo registro"}));
   }
 }

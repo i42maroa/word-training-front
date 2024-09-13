@@ -3,12 +3,12 @@ import {  Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { selecTitleModal, selectShowModal } from '../../../state/selectors/context.selector';
-import { closeModal } from '../../../state/actions/context.actions';
+import { AddModalComponent } from './templates/add/add.component';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AddModalComponent],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.css'
 })
@@ -22,7 +22,5 @@ export class ModalComponent {
     this.titleModal$ = this.store.select(selecTitleModal);
   }
 
-  closeModal(){
-    this.store.dispatch(closeModal());
-  }
+
 }

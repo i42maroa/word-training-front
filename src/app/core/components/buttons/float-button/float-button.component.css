@@ -9,11 +9,11 @@ button{
   font-size: 20px;
   text-align: center;
   transition: width 2s linear 1s;
-  background: var(--orange);
+  background: var(--primary);
 }
 
 button:hover{
   transform:scale(1.1);
-  background: var(--dark-orange);
+  background: var(--primary-dark);
   transition: 0.4s;
 }

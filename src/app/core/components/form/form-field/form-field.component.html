@@ -1,0 +1,7 @@
+<div class="formGroup">
+    <input class="formField" [type]="typeInput" [ngModel]="input"  (ngModelChange)="onChange($event)" [name]="name" [placeholder]="name">
+    <label [for]="name" class="formLabel">{{labelText}}
+        @if(icon === 'spain'){  <app-spain-svg/>}
+        @else if(icon === 'english'){ <app-english-svg/> }
+    </label>
+</div>
