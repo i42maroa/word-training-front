@@ -1,21 +1,9 @@
 <form class="form" [formGroup]="form">
 
-  <div class="formRow">
-    <div class="formGroup">
-      <input class="formField" type="text" name="name" placeholder="Name" formControlName="value"  required>
-      <label for="name" class="formLabel">Registro<app-english-svg/>
-      </label>
-    </div>
-
-    <div class="formGroup">
-      <select class="formField" formControlName="type" name="type" >
-        @for (option of optionSelect; track $index) {
-          <option [value]="option.value">{{option.label}}</option>
-        }
-      </select>
-      <label for="type" class="formLabel">Tipo</label>
-    </div>
-  </div>
+  <app-form-row>
+    <app-form-field formControlName="value" [name]="'value'" [labelText]="'Registro'" [icon]="'english'"/>
+    <app-form-select-field formControlName="type" [name]="'type'" [options]="optionSelect"  [labelText]="'Tipo'"/> 
+  </app-form-row>
 
   <div class="definitionsContainer" formArrayName="definitions">
     @for(def of definitions().controls; track $index; let definitionIndex = $index){
@@ -24,33 +12,19 @@
         <span class="definitionTitle">Definición {{definitionIndex + 1}}:</span>
 
         <div class="deleteButtonRow">
-            <app-form-button-secundary  (click)="addExample(definitionIndex)">
-              + Ejemplo
-            </app-form-button-secundary>
+            <app-form-button-secundary  (click)="addExample(definitionIndex)"> + Ejemplo</app-form-button-secundary>
           @if(definitions().length > 1){
-            <app-form-button-secundary  (click)="removeDefinition(definitionIndex)">
-              <app-delete-svg/>
-            </app-form-button-secundary>
+            <app-form-button-secundary  (click)="removeDefinition(definitionIndex)"><app-delete-svg/></app-form-button-secundary>
           }
         </div>
 
       </div>
       <div class="defContainer" [formGroupName]="definitionIndex" >
-        <div class="formRow">
-          <div class="formGroup">
-            <input name="translation" class="formField" type="text" name="translation" placeholder="Traduccion" formControlName="translation" required />
-            <label for="translation" class="formLabel">Traducción<app-spain-svg/></label>
-          </div>
-
-          <div class="formGroup">
-            <select formControlName="defType" class="formField" name="defType">
-              @for (optionDef of optionDefinitionSelect; track $index) {
-                <option [value]="optionDef.value" >{{optionDef.label}}</option>
-              }
-            </select>
-            <label for="defType" class="formLabel">Tipo</label>
-          </div>
-        </div>
+       
+        <app-form-row>
+          <app-form-field formControlName="translation" [name]="'translation'" [labelText]="'Traducción'" [icon]="'spain'"/>
+          <app-form-select-field formControlName="defType" [name]="'defType'" [options]="optionDefinitionSelect"  [labelText]="'Tipo'"/> 
+        </app-form-row>
 
         <div class="examplesContainer" formArrayName="examples" >
           @for(ex of examples(definitionIndex).controls; track $index; let exampleIndex = $index){
@@ -59,14 +33,8 @@
               <div class="exampleRow">
                 <span class="exampleTitle">Ejemplo {{exampleIndex + 1}}:</span>
               </div>
-              <div class="formGroup exampleField">
-                <input name="sentence" class="formField " type="text" placeholder="ejemplo"  formControlName="sentence"  />
-                <label for="sentence" class="formLabel">Ejemplo<app-english-svg/></label>
-              </div>
-              <div class="formGroup exampleField">
-                <input type="text"  name="translation" class="formField " placeholder="Traduccion"  formControlName="translation"  />
-                <label for="translation" class="formLabel">Ejemplo<app-spain-svg/></label>
-              </div>
+              <app-form-field formControlName="sentence" [name]="'sentence'" [labelText]="'Ejemplo'" [icon]="'english'"/>
+              <app-form-field formControlName="translation" [name]="'translation'" [labelText]="'Ejemplo'" [icon]="'spain'"/>  
             </div>
           }
         </div>

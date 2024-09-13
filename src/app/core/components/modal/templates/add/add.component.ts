@@ -7,15 +7,16 @@ import { Store } from '@ngrx/store';
 import { DeleteSvgComponent } from '../../../../svg/delete-svg/delete-svg.component';
 import { FormInputComponent } from '../../../../../shared/components/form/form-input/form-input.component';
 import { FormButtonComponent } from '../../../buttons/form-button/form-button.component';
-import { SpainSVGComponent } from '../../../../svg/spain-svg/spain-svg.component';
-import { EnglishSVGComponent } from '../../../../svg/english-svg/english-svg.component';
 import { FormButtonSecundaryComponent } from '../../../buttons/form-button-secundary/form-button-secundary.component';
+import { FormRowComponent } from '../../../form/form-row/form-row.component';
+import { FormFieldComponent } from '../../../form/form-field/form-field.component';
+import { FormSelectFieldComponent } from '../../../form/form-select-field/form-select-field.component';
 
 
 @Component({
   selector: 'app-add-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, DeleteSvgComponent, FormInputComponent, FormButtonComponent, FormButtonSecundaryComponent, SpainSVGComponent, EnglishSVGComponent],
+  imports: [ReactiveFormsModule, DeleteSvgComponent, FormInputComponent, FormButtonComponent, FormButtonSecundaryComponent, FormSelectFieldComponent, FormRowComponent, FormFieldComponent],
   templateUrl: './add.component.html',
   styleUrl: './add.component.css'
 })
