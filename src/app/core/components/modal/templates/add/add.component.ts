@@ -11,6 +11,7 @@ import { FormButtonSecundaryComponent } from '../../../buttons/form-button-secun
 import { FormRowComponent } from '../../../form/form-row/form-row.component';
 import { FormFieldComponent } from '../../../form/form-field/form-field.component';
 import { FormSelectFieldComponent } from '../../../form/form-select-field/form-select-field.component';
+import { RecordService } from '../../../../services/record/record.service';
 
 
 @Component({
@@ -41,7 +42,9 @@ export class AddModalComponent {
     ])
 });
 
-constructor(private readonly store:Store){
+constructor(private readonly store:Store, 
+  private readonly recordService:RecordService
+){
 }
 
   optionSelect: {label:string; value:RecordType}[] = RECORD_TYPE_OPTIONS;
@@ -100,8 +103,9 @@ constructor(private readonly store:Store){
   }
   saveRecord(){
    const form =  this.form.value;
-    const cleanedForm = this.cleanObject(form)
-    console.log(cleanedForm)
+    const cleanedForm = this.cleanObject(form);
+    this.recordService.saveNewRecord(cleanedForm);
+    this.store.dispatch(closeModal());
   }
 
   closeModal(){
@@ -109,8 +113,6 @@ constructor(private readonly store:Store){
   }
 
   cleanObject(form:any):RecordInterface{
-    console.log(form)
-
       const defs = form.definitions.reduce((definitions:DefinitionInterface[], definitionForm:any) => {
 
         if(definitionForm.translation){

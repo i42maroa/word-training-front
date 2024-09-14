@@ -1,7 +1,17 @@
-<div class="container">
-  <h2 class="record">{{record.value}}</h2>
+<a [routerLink]="['/']">Volver</a>
+@if(record$ | async; as record){
+  <div class="container">
+    <h2 class="record">{{record.value}}</h2>
+  
+    @for(definition of record.definitions; track definition.definitionId){
+      <app-definition [definition]="definition"></app-definition>
+    }
+  </div>
+  
+}
+@else{
+  record not load
 
-  @for(definition of record.definitions; track definition.definitionId){
-    <app-definition [definition]="definition"></app-definition>
-  }
-</div>
+}
+
+

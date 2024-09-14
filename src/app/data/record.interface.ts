@@ -26,6 +26,7 @@ export type RecordType = 'WORD' | 'PHRASAL' | 'EXPRESSION';
 export type DefinitionType = 'NOUN' | 'ADJECTIVE' | 'ADVERB' | 'VERB' | 'UNKNOWN';
 
 
+
 export const EXAMPLE_RECORD:RecordInterface = {
   _id:"12345",
   value:"bashful",

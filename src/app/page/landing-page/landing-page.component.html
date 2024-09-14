@@ -1,1 +1,9 @@
-<p>landing-page works!</p>
+@if(recordList | async; as records){
+  @for (record of records.values(); track $index) {
+    <div class="container">
+      <p>{{record.value}}</p>
+      <a [routerLink]="['/detail/', record._id]">go</a>
+      {{record._id}}
+    </div>
+    }
+}
