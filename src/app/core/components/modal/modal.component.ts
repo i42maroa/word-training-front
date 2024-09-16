@@ -2,25 +2,30 @@ import { Component } from '@angular/core';
 import {  Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { selecTitleModal, selectShowModal } from '../../../state/selectors/context.selector';
+import { selectShowModal, selectTypeModal } from '../../../state/selectors/context.selector';
 import { AddModalComponent } from './templates/add/add.component';
+import { ModalType } from '../../../data/modal.interface';
+import { AddExampleComponent } from './templates/add-example/add-example.component';
+import { AddDefinitionComponent } from './templates/add-definition/add-definition.component';
+import { ModalTitlePipe } from '../../pipes/modal-title/modal-title.pipe';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [CommonModule, AddModalComponent],
+  imports: [CommonModule, AddModalComponent, AddExampleComponent, AddDefinitionComponent, ModalTitlePipe],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.css'
 })
 export class ModalComponent {
 
-  showModal$: Observable<boolean>;
-  titleModal$: Observable<string>;
+  constructor(private readonly store:Store){}
 
-  constructor(private readonly store:Store){
-    this.showModal$ = this.store.select(selectShowModal);
-    this.titleModal$ = this.store.select(selecTitleModal);
+  get showModal(): Observable<boolean>{
+    return this.store.select(selectShowModal);
   }
 
+  get typeModal(): Observable<ModalType>{
+    return this.store.select(selectTypeModal);
+  }
 
 }

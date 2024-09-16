@@ -1,0 +1,8 @@
+<form class="form" [formGroup]="formGroup">
+  <ng-content></ng-content>
+
+  <div class="buttonRow">
+    <app-form-button (click)="closeModal()" [cancel]="true">Cancelar</app-form-button>
+    <app-form-button (click)="saveRecord()">Guardar</app-form-button>
+  </div>
+</form>

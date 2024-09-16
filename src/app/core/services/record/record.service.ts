@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { EXAMPLE_RECORD, RecordInterface } from '../../../data/record.interface';
+import { DefinitionInterface, EXAMPLE_RECORD, ExampleInterface, RecordInterface } from '../../../data/record.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,6 @@ import { EXAMPLE_RECORD, RecordInterface } from '../../../data/record.interface'
 export class RecordService {
 
  private $recordList= new BehaviorSubject<Map<string, RecordInterface>>(new Map([[EXAMPLE_RECORD._id, EXAMPLE_RECORD]]));
-// private $recordDetail= new BehaviorSubject<RecordInterface | undefined>(undefined);
 
  getRecordsByFilters(filter:any):Observable<Map<string, RecordInterface>>{
     return this.$recordList.asObservable();
@@ -20,17 +19,21 @@ export class RecordService {
     );
  }
 
-  getRecordFromApi(id:string){
-    //emulte request api
-    // this.$recordDetail.next(EXAMPLE_RECORD)
-  }
 
- //All this methods we have to send to the api
- saveNewRecord(record:RecordInterface ){
+ addNewRecord(record:RecordInterface ){
+  console.log(record)
   this.$recordList.value.set(record._id, record);
  }
 
  modificateRecord(){}
 
  deleteRecord(){}
+
+ addNewDefinition(id:string, definition:DefinitionInterface){
+  console.log(id,definition)
+ }
+
+ addNewExample(id:string, idDefinition:string, example: ExampleInterface){
+    console.log(id, idDefinition, example)
+ }
 }

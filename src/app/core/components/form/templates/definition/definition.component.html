@@ -1,0 +1,21 @@
+<div class="container" [formGroup]="formGroup">
+  <app-form-row>
+    <app-form-field formControlName="translation" [name]="'translation'" [labelText]="'Traducción'" [icon]="'spain'"/>
+    <app-form-select-field formControlName="defType" [name]="'defType'" [options]="optionDefinitionSelect"  [labelText]="'Tipo'"/>
+  </app-form-row>
+
+  <div class="rowAdding">
+    <app-form-button-secundary  (click)="addExample()"> + Ejemplo</app-form-button-secundary>
+
+  </div>
+   <div class="examplesContainer" formArrayName="examples" >
+      @for(ex of examples().controls; track $index; let exampleIndex = $index){
+        <div class="exampleContainer" [formGroupName]="exampleIndex" >
+          <div class="exampleRow">
+            <span class="exampleTitle">Ejemplo {{exampleIndex + 1}}:</span>
+          </div>
+          <app-form-template-examples [formGroup]="exampleGroup(exampleIndex)"/>
+        </div>
+      }
+  </div>
+</div>

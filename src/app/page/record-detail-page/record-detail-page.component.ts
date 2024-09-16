@@ -1,10 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { EXAMPLE_RECORD, RecordInterface } from '../../data/record.interface';
+import { RecordInterface } from '../../data/record.interface';
 import { DefinitionComponent } from '../../core/components/definition/definition.component';
 import { RecordService } from '../../core/services/record/record.service';
 import { CommonModule } from '@angular/common';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { showModal } from '../../state/actions/context.actions';
 
 @Component({
   selector: 'app-record-detail-page',
@@ -22,6 +24,13 @@ export class RecordDetailPageComponent {
     .subscribe(record => this.record$.next(record))
   }
 
-  constructor(private readonly recordService:RecordService){}
+  constructor(private readonly recordService:RecordService, private readonly store:Store){}
+
+
+  editRecord(){}
+
+  addDef(recordId:string){
+    this.store.dispatch(showModal({modalType:'new-definition', modalData:{recordId}}));
+  }
 
 }

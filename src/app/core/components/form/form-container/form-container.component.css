@@ -1,0 +1,13 @@
+.form{
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.buttonRow{
+  margin:10px auto;
+}
+
+.buttonRow *{
+  margin: 0 5px;
+}

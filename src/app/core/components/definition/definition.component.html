@@ -17,6 +17,8 @@
 
   @if(isMoreInfo && showAdditionalInfo){
     <div class="additionalInfoContainer">
+      <app-form-button-secundary  (click)="addExample(definition.definitionId)"> + Ejemplo</app-form-button-secundary>
+
       @if(definition.info){
         <p class="info">{{definition.info}}</p>
       }

@@ -28,33 +28,33 @@ export type DefinitionType = 'NOUN' | 'ADJECTIVE' | 'ADVERB' | 'VERB' | 'UNKNOWN
 
 
 export const EXAMPLE_RECORD:RecordInterface = {
-  _id:"12345",
+  _id:'1234',
   value:"bashful",
   type: 'WORD',
   creationDate: new Date(),
   modificationDate: new Date(),
   definitions: [
     {
-      definitionId:"4321",
+      definitionId:'4321',
       translation:"tímido, vergonzoso",
       type:'ADJECTIVE',
       info:"Se utiliza normalmente para definir algo a qeu no tengo ni idea",
       examples:[
         {
-          exampleId:"2222",
+          exampleId:crypto.randomUUID(),
           sentence:"Martín was a clever child, but he was bashful and found it hard to talk to people",
           translation:"Martín era un chico listo, pero era tímido y le costaba hablar con la gente",
           info:"El motivo es que yo no se que poner"
         },
         {
-          exampleId:"3333",
+          exampleId:crypto.randomUUID(),
           sentence:"She was bashful about singing in front of the crowd at the talent show",
           translation:"Le daba verguenza cantar frente a la multitud en el concurso de talentos."
         }
       ]
     },
     {
-      definitionId:"32412",
+      definitionId:'54321',
       translation:"petarda",
       type:'VERB',
       examples:[]

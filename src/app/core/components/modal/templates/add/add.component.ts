@@ -1,69 +1,39 @@
 import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
-import { DEFINITION_TYPE_OPTIONS, DefinitionInterface, DefinitionType, ExampleInterface, RECORD_TYPE_OPTIONS, RecordInterface, RecordType } from '../../../../../data/record.interface';
-import { closeModal } from '../../../../../state/actions/context.actions';
-import { Store } from '@ngrx/store';
-import { DeleteSvgComponent } from '../../../../svg/delete-svg/delete-svg.component';
-import { FormInputComponent } from '../../../../../shared/components/form/form-input/form-input.component';
-import { FormButtonComponent } from '../../../buttons/form-button/form-button.component';
 import { FormButtonSecundaryComponent } from '../../../buttons/form-button-secundary/form-button-secundary.component';
-import { FormRowComponent } from '../../../form/form-row/form-row.component';
-import { FormFieldComponent } from '../../../form/form-field/form-field.component';
-import { FormSelectFieldComponent } from '../../../form/form-select-field/form-select-field.component';
-import { RecordService } from '../../../../services/record/record.service';
+import { FormTemplateRecordComponent } from '../../../form/templates/record/record.component';
+import { FormTemplateDefinitionComponent } from '../../../form/templates/definition/definition.component';
+import { FormContainerComponent } from '../../../form/form-container/form-container.component';
 
 
 @Component({
   selector: 'app-add-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, DeleteSvgComponent, FormInputComponent, FormButtonComponent, FormButtonSecundaryComponent, FormSelectFieldComponent, FormRowComponent, FormFieldComponent],
+  imports: [FormContainerComponent, ReactiveFormsModule,FormButtonSecundaryComponent, FormTemplateRecordComponent,FormTemplateDefinitionComponent],
   templateUrl: './add.component.html',
   styleUrl: './add.component.css'
 })
-export class AddModalComponent {
+export class AddModalComponent{
 
-  form:FormGroup =new FormGroup({
+  formGroup:FormGroup =new FormGroup({
     value: new FormControl(),
     type: new FormControl('WORD'),
-    definitions: new FormArray([
-      new FormGroup({
-        translation:new FormControl(),
-        defType:new FormControl('NOUN'),
-        info:new FormControl(),
-        examples:new FormArray([
-          new FormGroup({
-            sentence:new FormControl(),
-            translation:new FormControl(),
-            info: new FormControl()
-          })
-        ])
-      })
-    ])
-});
+    definitions: new FormArray([this.newDefinition()])
+  });
 
-constructor(private readonly store:Store, 
-  private readonly recordService:RecordService
-){
-}
-
-  optionSelect: {label:string; value:RecordType}[] = RECORD_TYPE_OPTIONS;
-  optionDefinitionSelect: {label:string; value:DefinitionType}[] = DEFINITION_TYPE_OPTIONS;
 
   definitions(): FormArray {
-    return this.form.get('definitions') as FormArray;
+    return this.formGroup.get('definitions') as FormArray;
   }
 
-  examples(defIndex:number): FormArray {
-    return this.definitions().at(defIndex).get('examples') as FormArray;
+  definitionGroup(index:number){
+    return this.definitions().at(index) as FormGroup
   }
+
 
   addDefinition(){
     this.definitions().push(this.newDefinition())
-  }
-
-  addExample(defIndex:number){
-    this.examples(defIndex).push(this.newExample())
   }
 
   removeDefinition(defIndex: number) {
@@ -86,61 +56,8 @@ constructor(private readonly store:Store,
 
   }
 
-  newExample(){
-    return  new FormGroup({
-        sentence:new FormControl(),
-        translation:new FormControl(),
-        info: new FormControl()
-      });
-  }
-
   showRemoveDefinition(){
     return this.definitions().length > 1
   }
 
-  showRemoveExample(defIndex:number){
-    return this.examples(defIndex).length > 1
-  }
-  saveRecord(){
-   const form =  this.form.value;
-    const cleanedForm = this.cleanObject(form);
-    this.recordService.saveNewRecord(cleanedForm);
-    this.store.dispatch(closeModal());
-  }
-
-  closeModal(){
-    this.store.dispatch(closeModal());
-  }
-
-  cleanObject(form:any):RecordInterface{
-      const defs = form.definitions.reduce((definitions:DefinitionInterface[], definitionForm:any) => {
-
-        if(definitionForm.translation){
-          const exampleFromRed = definitionForm.examples.reduce((examples:ExampleInterface[], exampleForm:ExampleInterface) => {
-            if(exampleForm.sentence || exampleForm.translation){
-              examples.push(exampleForm)
-            }
-            return examples;
-          }, [])
-
-          const def:DefinitionInterface = {
-            definitionId:"d",
-            translation:definitionForm.translation,
-            type:definitionForm.defType,
-            examples:exampleFromRed
-          }
-          definitions.push(def)
-        }
-        return definitions;
-      }, [])
-
-    return {
-      creationDate: new Date(),
-      definitions: defs,
-      modificationDate: new Date(),
-      type:form.type,
-      value:form.value,
-      _id:""
-    }
-  }
 }

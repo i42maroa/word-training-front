@@ -1,106 +1,17 @@
-.form{
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-}
-
-.formRow{
-  display: flex;
-  justify-content: space-around;
-  margin: 10px;
-}
-
-
-.buttonRow{
-  margin:0 auto 10px auto;
-}
-
-.buttonRow *{
-  margin: 0 5px;
-}
-
 
 .definitionsContainer{
   margin: 15px 0;
 }
 
-.formRowDefinitionTitle{
-  display: flex;
-  margin: 10px;
-}
-
-.defContainer{
-  margin: 10px;
-  background-color: #F3F3F3;
-  padding: 10px 0 15px 0;
-}
-
-.examples{
-  display: flex;
-  flex-direction: column;
-}
-
-
-.exampleContainer{
-  display: flex;
-  flex-direction: column;
-  margin: 5px;
-}
-
-
-.exampleButton, .definitionButton{
-  margin: 5px auto;
-  padding: 5px 10px;
-}
-
-.formRowAdding{
-  display: flex;
-  justify-content: center;
-  margin: 20px auto ;
-}
-
-
-.separator{
-  height: 2px;
-  width: 80%;
-  border: none;
-  margin: 10px auto;
-}
-
-.definitionTitle{
-  font-size: 16px;
-  color: var(--primary);
-  font-weight: 800;
-  margin: auto 0;
-}
-
-.exampleRow{
+.row{
   display: flex;
   justify-content: space-between;
   margin: 10px;
   margin-bottom: 5px;
 }
 
-
-.exampleTitle{
-  font-size: 14px;
-  color: var(--primary);
-  font-weight: 800;
-  margin: auto 0;
-}
-
-.deleteButton{
-  background-color: var(--secondary);
-  height:fit-content;
-  background-color: transparent;
-  border: none;
-}
-
-.deleteButton:hover{
-  scale: 1.1;
-  cursor: pointer;
-}
-
-.deleteButtonRow *{
-  margin: 0 2.5px;
+.rowAdding{
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
 }

@@ -1,9 +1,19 @@
+
 @if(recordList | async; as records){
-  @for (record of records.values(); track $index) {
-    <div class="container">
-      <p>{{record.value}}</p>
-      <a [routerLink]="['/detail/', record._id]">go</a>
-      {{record._id}}
-    </div>
-    }
+  <div class="container">
+    @for (record of records.values(); track $index) {
+      <div [routerLink]="['/detail/', record._id]" class="record">
+        <span class="recordTag"></span>
+        <span class="recordValue">{{record.value}}</span>
+
+        @if(record.definitions.length > 0){
+          <div class="definitions">
+            @for (definitions of record.definitions; track $index) {
+              <span class="definitionText">{{definitions.translation}}</span>
+            }
+          </div>
+        }
+      </div>
+      }
+  </div>
 }

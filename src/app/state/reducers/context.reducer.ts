@@ -6,9 +6,13 @@ export const initialState:InterfaceState = INTERFACE_INITIAL_STATE;
 
 export const interfaceReducer = createReducer(
   initialState,
-  on(actions.showModal, (state, { title }) => {
+  on(actions.showModal, (state, { modalType }) => {
     return {...state, buttons:{...state.buttons, show:false},
-      modal:{...state.modal, title, show:true}}
+    modal:{...state.modal, show:true, type:modalType}}
+  }),
+  on(actions.showModal, (state, { modalType, modalData }) => {
+    return {...state, buttons:{...state.buttons, show:false},
+    modal:{show:true, type:modalType, data:modalData}}
   }),
   on(actions.closeModal, (state) => {
     return {...state, buttons:{...state.buttons, show:true},
