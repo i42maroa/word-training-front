@@ -28,13 +28,16 @@ export class RecordDetailPageComponent implements OnDestroy {
   constructor(private readonly recordService:RecordService, private readonly store:Store){}
 
 
-
   editRecord(recordId:string){
     this.store.dispatch(showModal({modalType:'modify-record', modalData:{recordId}}));
   }
 
   addDef(recordId:string){
     this.store.dispatch(showModal({modalType:'new-definition', modalData:{recordId}}));
+  }
+
+  deleteRecord(recordId:string){
+    this.store.dispatch(showModal({modalType:'delete-record', modalData:{recordId}}))
   }
 
   ngOnDestroy(): void {

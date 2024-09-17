@@ -19,6 +19,7 @@ import {  ModalState } from '../../../../data/modal.interface';
 export class FormContainerComponent {
 
   @Input() formGroup: FormGroup  =new FormGroup({});
+  @Input() recordId?:string | null;
 
   constructor(private readonly store:Store,
     private readonly recordService:RecordService
@@ -59,6 +60,10 @@ export class FormContainerComponent {
           if(recordCleaned){
             this.recordService.modificateRecord(recordCleaned);
           }
+          break;
+        }
+        case 'delete-record': {
+          this.recordService.deleteRecord(this.recordId!);
           break;
         }
         case 'new-definition':{

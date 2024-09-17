@@ -13,9 +13,11 @@ export class ModalTitlePipe implements PipeTransform {
         return "Nuevo registro";
       case 'new-definition':
         return "Nueva definición";
+      case 'delete-record':
+          return "Eliminar registro";
       case 'new-example':
         return "Nuevo ejemplo";
-        case 'modify-record':
+      case 'modify-record':
           return "Modificar registro";
       default:
         return '';

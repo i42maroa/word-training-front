@@ -29,7 +29,9 @@ export class RecordService {
   console.log(record._id, record)
  }
 
- deleteRecord(){}
+ deleteRecord(recordId:string){
+  console.log('delete record con id' , recordId)
+ }
 
  addNewDefinition(id:string, definition:DefinitionInterface){
   console.log(id,definition)
