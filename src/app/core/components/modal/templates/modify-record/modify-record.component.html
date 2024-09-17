@@ -1,0 +1,17 @@
+<app-form-container [formGroup]="formGroup">
+
+  <app-form-template-record [formGroup]="formGroup"/>
+
+  <div class="definitionsContainer" formArrayName="definitions">
+    @for(def of definitions().controls; track $index; let definitionIndex = $index){
+      <div class="row">
+        <span class="definitionTitle">Definición {{definitionIndex + 1}}:</span>
+      </div>
+      <app-form-templates-definition [formGroup]="definitionGroup(definitionIndex)"/>
+    }
+
+    <div class="rowAdding">
+      <app-form-button-secundary (click)="addDefinition()">+ Definición</app-form-button-secundary>
+    </div>
+  </div>
+</app-form-container>

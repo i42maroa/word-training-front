@@ -25,7 +25,9 @@ export class RecordService {
   this.$recordList.value.set(record._id, record);
  }
 
- modificateRecord(){}
+ modificateRecord(record:RecordInterface){
+  console.log(record._id, record)
+ }
 
  deleteRecord(){}
 

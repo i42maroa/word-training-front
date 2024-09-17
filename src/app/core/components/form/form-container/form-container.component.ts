@@ -54,6 +54,13 @@ export class FormContainerComponent {
           }
           break;
         }
+        case 'modify-record': {
+          const recordCleaned = this.cleanModifyRecord(form);
+          if(recordCleaned){
+            this.recordService.modificateRecord(recordCleaned);
+          }
+          break;
+        }
         case 'new-definition':{
           const definitionCleaned = this.cleanDefinition(form);
           if(definitionCleaned){
@@ -71,6 +78,51 @@ export class FormContainerComponent {
         default:
       }
    }
+
+   cleanModifyRecord(recordForm:any):RecordInterface | undefined{
+    const defs = this.cleanModificationDefinitionArray(recordForm);
+
+    if (recordForm.value){
+      return {
+        definitions: defs,
+        modificationDate: new Date(),
+        type:recordForm.type,
+        value:recordForm.value,
+        _id:recordForm._id ?? crypto.randomUUID()
+      }
+    }
+    return undefined;
+  }
+
+  cleanModificationDefinitionArray(form:any){
+    return form.definitions.reduce((definitions:DefinitionInterface[], definitionForm:any) => {
+
+      if(definitionForm.translation){
+        const def:DefinitionInterface = {
+          definitionId:definitionForm.definitionId ?? crypto.randomUUID(),
+          translation:definitionForm.translation,
+          type:definitionForm.defType,
+          examples:this.cleanModificationExampleArray(definitionForm)
+        }
+        definitions.push(def)
+      }
+      return definitions;
+    }, []);
+  }
+
+  cleanModificationExampleArray(definitionForm:any): ExampleInterface[]{
+    return definitionForm.examples.reduce((examples:ExampleInterface[], exampleForm:ExampleInterface) => {
+      if(exampleForm.sentence || exampleForm.translation){
+        examples.push({
+          exampleId: exampleForm.exampleId ?? crypto.randomUUID(),
+          sentence:exampleForm.sentence,
+          translation: exampleForm.translation
+        })
+      }
+      return examples;
+    }, [])
+  }
+
 
 
    cleanRecord(recordForm:any):RecordInterface | undefined{

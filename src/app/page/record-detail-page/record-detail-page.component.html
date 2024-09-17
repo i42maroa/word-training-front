@@ -2,7 +2,7 @@
 @if(record$ | async; as record){
   <div class="container">
 
-    <h2 class="record">{{record.value}}  <button (click)="editRecord()">-</button></h2>
+    <h2 class="record">{{record.value}}  <button (click)="editRecord(record._id)">-</button></h2>
 
     <button (click)="addDef(record._id)">add def</button>
     @for(definition of record.definitions; track definition.definitionId){

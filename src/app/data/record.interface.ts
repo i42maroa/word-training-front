@@ -2,7 +2,7 @@ export interface RecordInterface {
   _id:string;
   value:string;
   type:RecordType;
-  creationDate:Date;
+  creationDate?:Date;
   modificationDate:Date;
   definitions:DefinitionInterface[];
 }
@@ -41,13 +41,13 @@ export const EXAMPLE_RECORD:RecordInterface = {
       info:"Se utiliza normalmente para definir algo a qeu no tengo ni idea",
       examples:[
         {
-          exampleId:crypto.randomUUID(),
+          exampleId:"2323",
           sentence:"Martín was a clever child, but he was bashful and found it hard to talk to people",
           translation:"Martín era un chico listo, pero era tímido y le costaba hablar con la gente",
           info:"El motivo es que yo no se que poner"
         },
         {
-          exampleId:crypto.randomUUID(),
+          exampleId:"43212",
           sentence:"She was bashful about singing in front of the crowd at the talent show",
           translation:"Le daba verguenza cantar frente a la multitud en el concurso de talentos."
         }

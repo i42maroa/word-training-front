@@ -1,0 +1,17 @@
+
+.definitionsContainer{
+  margin: 15px 0;
+}
+
+.row{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  margin-bottom: 5px;
+}
+
+.rowAdding{
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+}
