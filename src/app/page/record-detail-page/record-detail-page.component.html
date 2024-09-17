@@ -4,7 +4,7 @@
 
     <h2 class="record">{{record.value}}  <button (click)="editRecord(record._id)">-</button></h2>
 
-    <button (click)="addDef(record._id)">add def</button>
+    <!-- <button (click)="addDef(record._id)">add def</button> -->
     @for(definition of record.definitions; track definition.definitionId){
       <app-definition [recordId]="record._id" [definition]="definition"></app-definition>
     }

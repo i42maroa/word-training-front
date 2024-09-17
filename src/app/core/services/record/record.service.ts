@@ -21,7 +21,7 @@ export class RecordService {
 
 
  addNewRecord(record:RecordInterface ){
-  console.log(record)
+  console.log(record, "add new")
   this.$recordList.value.set(record._id, record);
  }
 

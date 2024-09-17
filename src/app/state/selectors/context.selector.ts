@@ -15,7 +15,7 @@ export const selectShowButtons = createSelector(
 
 export const selectTypeButtons = createSelector(
   selectWordsFeature,
-  (state:InterfaceState) => state.buttons.type
+  (state:InterfaceState) => state.buttons.buttonType
 )
 
 export const selectTypeModal = createSelector(

@@ -3,10 +3,10 @@ import { RecordInterface } from '../../data/record.interface';
 import { DefinitionComponent } from '../../core/components/definition/definition.component';
 import { RecordService } from '../../core/services/record/record.service';
 import { CommonModule } from '@angular/common';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject,  Subscription } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { showModal } from '../../state/actions/context.actions';
+import { recordDetail, showModal } from '../../state/actions/context.actions';
 
 @Component({
   selector: 'app-record-detail-page',
@@ -21,19 +21,15 @@ export class RecordDetailPageComponent implements OnDestroy {
   subscription!: Subscription;
 
   @Input() set recordId(recordId: string) {
+    this.store.dispatch(recordDetail({recordId}));
     this.subscription = this.recordService.getRecordDetail(recordId)
     .subscribe(record => this.record$.next(record))
   }
 
   constructor(private readonly recordService:RecordService, private readonly store:Store){}
 
-
   editRecord(recordId:string){
     this.store.dispatch(showModal({modalType:'modify-record', modalData:{recordId}}));
-  }
-
-  addDef(recordId:string){
-    this.store.dispatch(showModal({modalType:'new-definition', modalData:{recordId}}));
   }
 
   deleteRecord(recordId:string){

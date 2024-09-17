@@ -17,14 +17,15 @@ export interface ModalState{
 }
 
 export interface ButtonsState{
+  buttonType:ButtonType;
   show:boolean;
-  type:ButtonType
+
 }
 
 
 export type ModalType = RecordOperation | DefinitionOperation | ExampleOperation;
 
-export type ButtonType = 'add' ;
+export type ButtonType = 'add' | 'add-definition' ;
 export type RecordOperation = 'new-record' | 'modify-record' | 'delete-record';
 export type DefinitionOperation = 'new-definition' | 'modify-definition' | 'delete-definition';
 export type ExampleOperation = 'new-example' | 'modify-example' | 'delete-example';
@@ -32,7 +33,7 @@ export type ExampleOperation = 'new-example' | 'modify-example' | 'delete-exampl
 export const INTERFACE_INITIAL_STATE:InterfaceState ={
   buttons:{
     show:true,
-    type:'add'
+    buttonType:'add'
   },
   modal:{
     show:false,

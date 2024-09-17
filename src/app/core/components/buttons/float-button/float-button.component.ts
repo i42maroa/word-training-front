@@ -26,4 +26,8 @@ export class FloatButtonComponent {
   dispatchNewWordModal(){
     this.store.dispatch(showModal({ modalType:'new-record'}));
   }
+
+  dispatchNewDefinitionModal(){
+    this.store.dispatch(showModal({ modalType:'new-definition'}));
+  }
 }
