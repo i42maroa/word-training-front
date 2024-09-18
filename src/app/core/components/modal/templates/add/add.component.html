@@ -6,6 +6,11 @@
     @for(def of definitions().controls; track $index; let definitionIndex = $index){
       <div class="row">
         <span class="definitionTitle">Definición {{definitionIndex + 1}}:</span>
+        @if(definitions().controls.length > 1){
+          <app-form-button (click)="removeDefinition(definitionIndex)">
+            <app-delete-svg/>
+          </app-form-button>
+        }
       </div>
       <app-form-templates-definition [formGroup]="definitionGroup(definitionIndex)"/>
     }

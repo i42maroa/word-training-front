@@ -5,12 +5,14 @@ import { FormButtonSecundaryComponent } from '../../../buttons/form-button-secun
 import { FormTemplateRecordComponent } from '../../../form/templates/record/record.component';
 import { FormTemplateDefinitionComponent } from '../../../form/templates/definition/definition.component';
 import { FormContainerComponent } from '../../../form/form-container/form-container.component';
+import { FormButtonComponent } from '../../../buttons/form-button/form-button.component';
+import { DeleteSvgComponent } from '../../../../svg/delete-svg/delete-svg.component';
 
 
 @Component({
   selector: 'app-add-modal',
   standalone: true,
-  imports: [FormContainerComponent, ReactiveFormsModule,FormButtonSecundaryComponent, FormTemplateRecordComponent,FormTemplateDefinitionComponent],
+  imports: [FormContainerComponent, ReactiveFormsModule, FormButtonComponent, FormButtonSecundaryComponent, FormTemplateRecordComponent,FormTemplateDefinitionComponent, DeleteSvgComponent],
   templateUrl: './add.component.html',
   styleUrl: './add.component.css'
 })

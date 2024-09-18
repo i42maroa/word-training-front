@@ -9,11 +9,13 @@ import { RecordService } from '../../../../services/record/record.service';
 import { selectModal } from '../../../../../state/selectors/context.selector';
 import { combineLatest, map, mergeMap, of, Subscription } from 'rxjs';
 import { DefinitionInterface, ExampleInterface, RecordInterface } from '../../../../../data/record.interface';
+import { DeleteSvgComponent } from '../../../../svg/delete-svg/delete-svg.component';
+import { FormButtonComponent } from '../../../buttons/form-button/form-button.component';
 
 @Component({
   selector: 'app-modify-record-modal',
   standalone: true,
-  imports: [FormContainerComponent, ReactiveFormsModule,FormButtonSecundaryComponent, FormTemplateRecordComponent,FormTemplateDefinitionComponent],
+  imports: [FormContainerComponent, ReactiveFormsModule,FormButtonSecundaryComponent, FormTemplateRecordComponent,FormTemplateDefinitionComponent, FormButtonComponent, DeleteSvgComponent],
   templateUrl: './modify-record.component.html',
   styleUrl: './modify-record.component.css'
 })
