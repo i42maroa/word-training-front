@@ -1,6 +1,6 @@
 @if(example){
   <div class="container">
-    <button class="containerHeader" (click)="toggleShowAdditionalInfo()">
+    <!-- <button class="containerHeader" (click)="toggleShowAdditionalInfo()"> -->
       <p class="sentence">{{example.sentence}}
 
         <!-- @if(isMoreInfo && !showAdditionalInfo){
@@ -10,14 +10,21 @@
         } -->
       </p>
 
-    </button>
+    <!-- </button> -->
 
   @if(showAdditionalInfo){
       <p class="sentenceTranslated">{{example.translation}}</p>
-      @if(example.info){
+      <!-- @if(example.info){
         <p class="info">{{example.info}}</p>
-      }
+      } -->
 
+  }@else{
+    <div class="translateHidden">
+      <p>Lorem ipsum dolor  </p>
+      <div class="modal">
+      </div>
+      <button (click)="toggleShowAdditionalInfo()" class="buttonTranslate">translate</button>
+    </div>
   }
   </div>
 }

@@ -1,13 +1,14 @@
 .container{
-  margin: 0 10px;
+  margin: 0 ;
 }
 .definitionContainer{
   display: flex;
-  border: none;
-  background: transparent;
-  margin: auto 0;
-  cursor: pointer;
+  margin: 0;
   justify-content: space-between;
+}
+
+.definition{
+  font-weight: 800;
 }
 
 .definition::first-letter,
@@ -31,17 +32,38 @@
   background-color: transparent;
 }
 
-.containerAdditionalInfo{
+.additionalInfoContainer{
   display: flex;
   flex-direction: column;
+  margin: 10px;
 }
 
+.exampleRow{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--secondary);
+}
 
+.exampleName {
+  padding: 0;
+  margin: auto 0 0 0;
+}
+
+.button{
+  margin: auto 0;
+}
 .info{
-  padding: 10px;
+  padding: 0;
 }
 .separator{
   height: 1px;
   background-color: var(--primary);
   border: none;
+}
+
+.row{
+  width: max-content;
+  margin: auto;
 }

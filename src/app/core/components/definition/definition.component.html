@@ -1,6 +1,6 @@
 @if(definition){
 <div class="container">
-    <button (click)="toggleShowAdditionalInfo()" class="definitionContainer">
+    <div class="definitionContainer">
       <h3 class="definition">
         {{definition.translation}}
         <span class="definitionType">{{definition.type | definitionTypePipe}}</span>
@@ -11,22 +11,33 @@
           <app-info-svg />
         </button>
       }
-    </button>
+    </div>
 
 
-
-  @if(isMoreInfo && showAdditionalInfo){
     <div class="additionalInfoContainer">
-      <app-form-button-secundary  (click)="addExample(definition.definitionId)"> + Ejemplo</app-form-button-secundary>
 
       @if(definition.info){
         <p class="info">{{definition.info}}</p>
       }
+
+      @if(definition.examples.length > 0){
+        <div class="exampleRow">
+          <h5 class="exampleName">Examples</h5>
+          <app-form-button-secundary class="button" (click)="addExample(definition.definitionId)"> + Ejemplo</app-form-button-secundary>
+        </div>
+      }
+
       @for(example of definition.examples; track example.exampleId){
           <app-example [example]="example"/>
       }
-    <hr class="separator">
+
+      @if(definition.examples.length === 0){
+        <div class="row">
+          <app-form-button-secundary  (click)="addExample(definition.definitionId)"> + Ejemplo</app-form-button-secundary>
+        </div>
+      }
+
   </div>
-  }
+
 </div>
 }
