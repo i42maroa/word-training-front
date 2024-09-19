@@ -3,6 +3,9 @@ import { ButtonType, ModalDataState, ModalType } from "../../data/modal.interfac
 export const closeModal = createAction('[Modal record] close modal');
 export const showModal = createAction('[Modal record] show modal', props<{ modalType:ModalType, modalData?:ModalDataState }>());
 
+export const showMenu = createAction('[Menu] show');
+export const closeMenu = createAction('[Menu] close');
+
 export const changeButtonType = createAction('[Record list] in record list', props<{ buttonType:ButtonType}>());
 
 export const recordList =  createAction('[Record list] record list loaded');

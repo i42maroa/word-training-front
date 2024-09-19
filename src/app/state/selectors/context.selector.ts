@@ -27,3 +27,25 @@ export const selectModal = createSelector(
   selectWordsFeature,
   (state:InterfaceState) => state.modal
 )
+
+export const selectModalData = createSelector(
+  selectWordsFeature,
+  (state:InterfaceState) => state.modal.data
+)
+
+export const selectMenu = createSelector(
+  selectWordsFeature,
+  (state:InterfaceState) => state.menu
+)
+
+
+export const selectMenuShow = createSelector(
+  selectWordsFeature,
+  (state:InterfaceState) => state.menu.show
+)
+
+
+export const selectPage = createSelector(
+  selectWordsFeature,
+  (state:InterfaceState) => state.page
+)

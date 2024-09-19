@@ -4,14 +4,13 @@ import { DefinitionComponent } from '../../core/components/definition/definition
 import { RecordService } from '../../core/services/record/record.service';
 import { CommonModule } from '@angular/common';
 import { BehaviorSubject,  Subscription } from 'rxjs';
-import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { recordDetail, showModal } from '../../state/actions/context.actions';
+import { recordDetail } from '../../state/actions/context.actions';
 
 @Component({
   selector: 'app-record-detail-page',
   standalone: true,
-  imports: [RouterLink, DefinitionComponent, CommonModule],
+  imports: [DefinitionComponent, CommonModule],
   templateUrl: './record-detail-page.component.html',
   styleUrl: './record-detail-page.component.css'
 })
@@ -27,14 +26,6 @@ export class RecordDetailPageComponent implements OnDestroy {
   }
 
   constructor(private readonly recordService:RecordService, private readonly store:Store){}
-
-  editRecord(recordId:string){
-    this.store.dispatch(showModal({modalType:'modify-record', modalData:{recordId}}));
-  }
-
-  deleteRecord(recordId:string){
-    this.store.dispatch(showModal({modalType:'delete-record', modalData:{recordId}}))
-  }
 
   ngOnDestroy(): void {
    this.subscription.unsubscribe();

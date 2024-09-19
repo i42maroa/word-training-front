@@ -1,21 +1,15 @@
-<a [routerLink]="['/']">Volver</a>
 @if(record$ | async; as record){
   <div class="container">
 
-    <h2 class="record">{{record.value}}  <button (click)="editRecord(record._id)">-</button></h2>
+    <h2 class="record">{{record.value}}</h2>
 
-    <!-- <button (click)="addDef(record._id)">add def</button> -->
     @for(definition of record.definitions; track definition.definitionId){
       <app-definition [recordId]="record._id" [definition]="definition"></app-definition>
     }
-
-    <button (click)="deleteRecord(record._id)">delete</button>
   </div>
-
 }
 @else{
   record not load
-
 }
 
 

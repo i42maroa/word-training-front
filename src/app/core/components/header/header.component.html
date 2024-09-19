@@ -1,0 +1,9 @@
+<div class="container">
+  <a [routerLink]="['/']">EnglishTraing</a>
+
+  @if(menu | async){
+    <button (click)="closeMenu()">close</button>
+  }@else{
+    <button (click)="showMenu()">Menu</button>
+  }
+</div>
