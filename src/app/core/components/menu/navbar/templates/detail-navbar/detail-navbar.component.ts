@@ -3,11 +3,12 @@ import { Store } from '@ngrx/store';
 import { showModal } from '../../../../../../state/actions/context.actions';
 import { map, Subscription, take } from 'rxjs';
 import { selectModalData } from '../../../../../../state/selectors/context.selector';
+import { NavbarButtonComponent } from '../../../../buttons/navbar-button/navbar-button.component';
 
 @Component({
   selector: 'app-detail-navbar',
   standalone: true,
-  imports: [],
+  imports: [NavbarButtonComponent],
   templateUrl: './detail-navbar.component.html',
   styleUrl: './detail-navbar.component.css'
 })

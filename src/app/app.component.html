@@ -1,7 +1,16 @@
+<div class="headerContainer">
+  @if ((showModal | async)===false) {
+    <app-header/>
+  }
+</div>
 <div class="main_container">
-  <app-header/>
   <router-outlet/>
+  @if (showModal | async) {
   <app-modal class="modal"/>
-  <app-menu/>
+  }
+  @if(showMenu | async){
+    <app-menu class="menu"/>
+  }
+
   <app-float-button class="float_button"/>
 </div>
