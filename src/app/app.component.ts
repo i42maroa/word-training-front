@@ -8,11 +8,12 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectMenuShow, selectShowModal } from './state/selectors/context.selector';
 import { CommonModule } from '@angular/common';
+import { ToastComponent } from './core/components/toast/toast.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, RouterOutlet, ModalComponent, FloatButtonComponent, MenuComponent],
+  imports: [CommonModule, HeaderComponent, RouterOutlet, ModalComponent, FloatButtonComponent, MenuComponent, ToastComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -28,5 +29,4 @@ export class AppComponent {
   get showModal(): Observable<boolean>{
     return this.store.select(selectShowModal);
   }
-
 }

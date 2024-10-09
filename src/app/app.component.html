@@ -4,6 +4,8 @@
   }
 </div>
 <div class="main_container">
+
+
   <router-outlet/>
   @if (showModal | async) {
   <app-modal class="modal"/>
@@ -13,4 +15,6 @@
   }
 
   <app-float-button class="float_button"/>
+
+  <app-toast/>
 </div>

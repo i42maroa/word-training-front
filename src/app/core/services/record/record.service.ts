@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { DefinitionInterface, EXAMPLE_RECORD, ExampleInterface, RecordInterface } from '../../../data/record.interface';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,8 @@ import { DefinitionInterface, EXAMPLE_RECORD, ExampleInterface, RecordInterface 
 export class RecordService {
 
  private $recordList= new BehaviorSubject<Map<string, RecordInterface>>(new Map([[EXAMPLE_RECORD._id, EXAMPLE_RECORD]]));
+
+constructor(private readonly notification:NotificationService){ }
 
  getRecordsByFilters(filter:any):Observable<Map<string, RecordInterface>>{
     return this.$recordList.asObservable();
@@ -21,23 +24,23 @@ export class RecordService {
 
 
  addNewRecord(record:RecordInterface ){
-  console.log(record, "add new")
   this.$recordList.value.set(record._id, record);
+  this.notification.showSuccessfullyMessage("Registro añadido exitosamente");
  }
 
  modificateRecord(record:RecordInterface){
-  console.log(record._id, record)
+  this.notification.showSuccessfullyMessage("Registro modificado exitosamente");
  }
 
  deleteRecord(recordId:string){
-  console.log('delete record con id' , recordId)
+  this.notification.showSuccessfullyMessage("Registro eliminado exitosamente");
  }
 
  addNewDefinition(id:string, definition:DefinitionInterface){
-  console.log(id,definition)
+  this.notification.showSuccessfullyMessage("Definicion añadida exitosamente");
  }
 
  addNewExample(id:string, idDefinition:string, example: ExampleInterface){
-    console.log(id, idDefinition, example)
+  this.notification.showSuccessfullyMessage("Ejemplo añadido exitosamente");
  }
 }
