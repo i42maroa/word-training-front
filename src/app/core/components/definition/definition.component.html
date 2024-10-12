@@ -5,12 +5,6 @@
         {{definition.translation}}
         <span class="definitionType">{{definition.type | definitionTypePipe}}</span>
       </h3>
-
-      @if(isMoreInfo && !showAdditionalInfo){
-        <button class="additionalInfoButton" (click)="toggleShowAdditionalInfo()">
-          <app-info-svg />
-        </button>
-      }
     </div>
 
 
