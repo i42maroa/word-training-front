@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { RecordService } from '../../core/services/record/record.service';
 import { Observable } from 'rxjs';
-import { RecordInterface } from '../../data/record.interface';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { loadRecordList } from '../../state/actions/context.actions';
+import { selectRecordList } from '../../state/selectors/data.selector';
+import { PaginationRecordResponse } from '../../data/pagination.interface';
 
 @Component({
   selector: 'app-landing-page',
@@ -15,16 +16,13 @@ import { Store } from '@ngrx/store';
 })
 export class LandingPageComponent implements OnInit{
 
-  constructor(private readonly recordService:RecordService, private readonly store:Store){}
+  constructor(private readonly store:Store){}
 
-  get recordList():Observable<RecordInterface[]>{
-    const filter = null;
-    return this.recordService.getRecordsByFilters(filter);
-
+  get recordList():Observable<PaginationRecordResponse>{
+    return this.store.select(selectRecordList);
   }
 
   ngOnInit(): void {
-   // this.store.dispatch(recordList())
-   this.recordService.getRecordList().subscribe(e => console.log(e))
+    this.store.dispatch(loadRecordList())
   }
 }

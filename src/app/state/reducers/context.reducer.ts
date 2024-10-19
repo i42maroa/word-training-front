@@ -15,10 +15,13 @@ export const interfaceReducer = createReducer(
     return {...state, buttons:{...state.buttons, show:true},
       modal:{...state.modal, show:false}}
   }),
-  on(actions.recordList, (state) => {
+  on(actions.loadRecordList, (state) => {
     const type = 'add' as ButtonType;
     const page = 'root' as PageUbication;
-    return {...state, page, menu:{show:false}, buttons:{...state.buttons, show:true, buttonType:type}, modal:{...state.modal}}
+    return {...state, page, menu:{show:false}, buttons:{...state.buttons, show:true, buttonType:type}, modal:{...state.modal}, loading:true}
+  }),
+  on(actions.recordListLoadedSuccessfully, (state) => {
+    return {...state, menu:{show:false}, buttons:{...state.buttons}, modal:{...state.modal}, loading:false}
   }),
   on(actions.recordDetail, (state, {recordId}) => {
     const type = 'add-definition' as ButtonType;

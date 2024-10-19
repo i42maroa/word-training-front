@@ -50,7 +50,8 @@ constructor(
  }
 
  getRecordList():Observable<PaginationRecordResponse>{
-    return this.http.get<PaginationRecordResponse>("http://localhost:8080/record/page/WORDd")
+    console.log("e");
+    return this.http.get<PaginationRecordResponse>("http://localhost:8080/record/page/WORD")
     ;
  }
 }

@@ -3,7 +3,8 @@ export interface InterfaceState{
   page:PageUbication,
   buttons:ButtonsState,
   modal:ModalState,
-  menu:MenuState
+  menu:MenuState,
+  loading:boolean
 }
 
 export interface ModalDataState {
@@ -53,5 +54,6 @@ export const INTERFACE_INITIAL_STATE:InterfaceState ={
   },
   menu:{
     show:false
-  }
+  },
+  loading:false
 }
