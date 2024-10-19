@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, throwError } from 'rxjs';
 import { DefinitionInterface, EXAMPLE_RECORD, ExampleInterface, RecordInterface } from '../../../data/record.interface';
 import { NotificationService } from '../notification/notification.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { PaginationRecordResponse } from '../../../data/pagination.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,9 @@ constructor(
   private readonly notification:NotificationService,
   private readonly http:HttpClient){ }
 
- getRecordsByFilters(filter:any):Observable<Map<string, RecordInterface>>{
-  this.http.get('')
-    return this.$recordList.asObservable();
+ getRecordsByFilters(filter:any):Observable<RecordInterface[]>{
 
+  return of([]) as Observable<RecordInterface[]>
  }
 
  getRecordDetail(id:string):Observable<RecordInterface|undefined>{
@@ -47,5 +47,10 @@ constructor(
 
  addNewExample(id:string, idDefinition:string, example: ExampleInterface){
   this.notification.showSuccessfullyMessage("Ejemplo añadido exitosamente");
+ }
+
+ getRecordList():Observable<PaginationRecordResponse>{
+    return this.http.get<PaginationRecordResponse>("http://localhost:8080/record/page/WORDd")
+    ;
  }
 }

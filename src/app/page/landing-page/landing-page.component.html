@@ -1,7 +1,7 @@
 
 @if(recordList | async; as records){
   <div class="container">
-    @for (record of records.values(); track $index) {
+    @for (record of records; track $index) {
       <div [routerLink]="['/detail/', record._id]" class="record">
         <span class="recordTag"></span>
         <span class="recordValue">{{record.value}}</span>

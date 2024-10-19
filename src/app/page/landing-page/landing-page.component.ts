@@ -5,7 +5,6 @@ import { RecordInterface } from '../../data/record.interface';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { recordList } from '../../state/actions/context.actions';
 
 @Component({
   selector: 'app-landing-page',
@@ -18,12 +17,14 @@ export class LandingPageComponent implements OnInit{
 
   constructor(private readonly recordService:RecordService, private readonly store:Store){}
 
-  get recordList():Observable<Map<string, RecordInterface>>{
+  get recordList():Observable<RecordInterface[]>{
     const filter = null;
     return this.recordService.getRecordsByFilters(filter);
+
   }
 
   ngOnInit(): void {
-    this.store.dispatch(recordList())
+   // this.store.dispatch(recordList())
+   this.recordService.getRecordList().subscribe(e => console.log(e))
   }
 }
