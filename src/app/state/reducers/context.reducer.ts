@@ -23,7 +23,7 @@ export const interfaceReducer = createReducer(
   on(actions.recordListLoadedSuccessfully, (state) => {
     return {...state, menu:{show:false}, buttons:{...state.buttons}, modal:{...state.modal}, loading:false}
   }),
-  on(actions.recordDetail, (state, {recordId}) => {
+  on(actions.getRecordDetail, (state, {recordId}) => {
     const type = 'add-definition' as ButtonType;
     const page = 'detail' as PageUbication;
     return {...state, menu:{show:false}, page, buttons:{...state.buttons, show:true, buttonType:type}, modal:{...state.modal, data:{recordId:recordId}}}

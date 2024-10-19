@@ -93,7 +93,7 @@ export class FormContainerComponent {
         modificationDate: new Date(),
         type:recordForm.type,
         value:recordForm.value,
-        _id:recordForm._id ?? crypto.randomUUID()
+        recordId:recordForm.recordId ?? crypto.randomUUID()
       }
     }
     return undefined;
@@ -140,7 +140,7 @@ export class FormContainerComponent {
         modificationDate: new Date(),
         type:recordForm.type,
         value:recordForm.value,
-        _id:crypto.randomUUID()
+        recordId:crypto.randomUUID()
       }
     }
     return undefined;

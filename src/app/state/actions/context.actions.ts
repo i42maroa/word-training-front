@@ -1,5 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { ButtonType, ModalDataState, ModalType } from "../../data/modal.interface";
+import { RecordInterface } from "../../data/record.interface";
 
 export const closeModal = createAction('[Modal record] close modal');
 export const showModal = createAction('[Modal record] show modal', props<{ modalType:ModalType, modalData?:ModalDataState }>());
@@ -13,4 +14,5 @@ export const loadRecordList =  createAction('[Record list] try load record List'
 export const recordListLoadedSuccessfully =  createAction('[Record list] record list loaded successfully');
 export const recordListError =  createAction('[Record list] error to load Record list');
 
-export const recordDetail =  createAction('[Record detail] record loaded', props<{ recordId:string}>());
+export const getRecordDetail =  createAction('[Record detail] record loaded', props<{ recordId:string}>());
+export const loadRecordDetailSuccessfully =  createAction('[Record detail] record loaded', props<{ record:RecordInterface}>());

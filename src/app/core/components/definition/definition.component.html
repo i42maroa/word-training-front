@@ -14,21 +14,22 @@
         <p class="info">{{definition.info}}</p>
       }
 
-      @if(definition.examples.length > 0){
+      @if(definition.examples && definition.examples.length > 0){
         <div class="exampleRow">
           <h5 class="exampleName">Examples</h5>
           <app-form-button-secundary class="button" (click)="addExample(definition.definitionId)"> + Ejemplo</app-form-button-secundary>
         </div>
-      }
 
-      @for(example of definition.examples; track example.exampleId){
-          <app-example [example]="example"/>
-      }
 
-      @if(definition.examples.length === 0){
-        <div class="row">
-          <app-form-button-secundary  (click)="addExample(definition.definitionId)"> + Ejemplo</app-form-button-secundary>
-        </div>
+        @for(example of definition.examples; track example.exampleId){
+            <app-example [example]="example"/>
+        }
+
+        @if(definition.examples.length === 0){
+          <div class="row">
+            <app-form-button-secundary  (click)="addExample(definition.definitionId)"> + Ejemplo</app-form-button-secundary>
+          </div>
+        }
       }
 
   </div>

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, tap } from 'rxjs';
 import { DefinitionInterface, EXAMPLE_RECORD, ExampleInterface, RecordInterface } from '../../../data/record.interface';
 import { NotificationService } from '../notification/notification.service';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { PaginationRecordResponse } from '../../../data/pagination.interface';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { PaginationRecordResponse } from '../../../data/pagination.interface';
 })
 export class RecordService {
 
- private $recordList= new BehaviorSubject<Map<string, RecordInterface>>(new Map([[EXAMPLE_RECORD._id, EXAMPLE_RECORD]]));
+ private $recordList= new BehaviorSubject<Map<string, RecordInterface>>(new Map([[EXAMPLE_RECORD.recordId, EXAMPLE_RECORD]]));
 
 constructor(
   private readonly notification:NotificationService,
@@ -22,14 +22,13 @@ constructor(
  }
 
  getRecordDetail(id:string):Observable<RecordInterface|undefined>{
-    return this.$recordList.pipe(
-      map((val)=> val.get(id))
-    );
+  return this.http.get<RecordInterface>("http://localhost:8080/record/" + id)
+  .pipe(tap(m => console.log(m)));
  }
 
 
  addNewRecord(record:RecordInterface ){
-  this.$recordList.value.set(record._id, record);
+  this.$recordList.value.set(record.recordId, record);
   this.notification.showSuccessfullyMessage("Registro añadido exitosamente");
  }
 
@@ -50,8 +49,7 @@ constructor(
  }
 
  getRecordList():Observable<PaginationRecordResponse>{
-    console.log("e");
     return this.http.get<PaginationRecordResponse>("http://localhost:8080/record/page/WORD")
-    ;
+    .pipe(tap(m => console.log(m)));
  }
 }

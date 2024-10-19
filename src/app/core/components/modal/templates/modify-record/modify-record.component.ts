@@ -43,7 +43,7 @@ export class ModifyRecordComponent implements OnInit, OnDestroy{
           this.formGroup.patchValue({
             value:record.value,
             type:record.type,
-            _id:record._id
+            recordId:record.recordId
           })
 
           record.definitions.forEach((definition:DefinitionInterface) => {

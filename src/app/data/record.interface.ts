@@ -1,5 +1,5 @@
 export interface RecordInterface {
-  _id:string;
+  recordId:string;
   value:string;
   type:RecordType;
   creationDate?:Date;
@@ -28,7 +28,7 @@ export type DefinitionType = 'NOUN' | 'ADJECTIVE' | 'ADVERB' | 'VERB' | 'UNKNOWN
 
 
 export const EXAMPLE_RECORD:RecordInterface = {
-  _id:'1234',
+  recordId:'1234',
   value:"bashful",
   type: 'WORD',
   creationDate: new Date(),

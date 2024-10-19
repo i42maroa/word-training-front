@@ -10,5 +10,8 @@ export const dataReducer = createReducer(
   initialState,
   on(actions.loadRecordListData, (state, { recordList}) => {
     return {...state, recordList}
+  }),
+  on(actions.loadRecordDetail, (state, { record }) => {
+    return {...state, record}
   })
 )
