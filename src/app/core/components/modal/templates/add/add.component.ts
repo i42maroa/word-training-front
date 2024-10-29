@@ -45,7 +45,7 @@ export class AddModalComponent{
   newDefinition(){
     return  new FormGroup({
         translation:new FormControl(),
-        defType:new FormControl('NOUN'),
+        type:new FormControl('NOUN'),
         info:new FormControl(),
         examples:new FormArray([
           new FormGroup({

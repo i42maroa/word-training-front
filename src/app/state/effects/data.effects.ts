@@ -2,7 +2,7 @@ import { inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { checkIsRecordPrecharged, loadRecordDetail, loadRecordListData } from "../actions/data.actions";
 import { exhaustMap, map } from "rxjs";
-import { getRecordDetail, recordListLoadedSuccessfully } from "../actions/context.actions";
+import { getRecordDetail, loadRecordsListSuccessfully } from "../actions/context.actions";
 import { Store } from "@ngrx/store";
 import { selectRecordList } from "../selectors/data.selector";
 
@@ -10,7 +10,7 @@ export const loadRecordSuccessfull = createEffect(
   (actions$ = inject(Actions)) => {
     return actions$.pipe(
       ofType(loadRecordListData),
-      map(() => recordListLoadedSuccessfully())
+      map(() => loadRecordsListSuccessfully())
     );
   },
   { functional: true }
@@ -37,4 +37,3 @@ export const loadRecordDetailPrecharge = createEffect(
   },
   { functional: true }
 );
-

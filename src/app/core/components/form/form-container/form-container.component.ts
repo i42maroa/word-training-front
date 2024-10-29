@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { RecordService } from '../../../services/record/record.service';
-import { closeModal } from '../../../../state/actions/context.actions';
+import { closeModal, modifyRecord, removeRecord, saveNewDefinition, saveNewExample, saveNewRecord } from '../../../../state/actions/context.actions';
 import { FormButtonComponent } from '../../buttons/form-button/form-button.component';
-import { DefinitionInterface, ExampleInterface, RecordInterface } from '../../../../data/record.interface';
+import { DefinitionInterface, ExampleInterface } from '../../../../data/record.interface';
 import { selectModal } from '../../../../state/selectors/context.selector';
 import { map, Observable } from 'rxjs';
 import {  ModalState } from '../../../../data/modal.interface';
+import { DefinitionNewRequest, ExampleNewRequest, RequestNewRecord } from '../../../../data/api.interface';
 
 @Component({
   selector: 'app-form-container',
@@ -21,10 +21,8 @@ export class FormContainerComponent {
   @Input() formGroup: FormGroup  =new FormGroup({});
   @Input() recordId?:string | null;
 
-  constructor(private readonly store:Store,
-    private readonly recordService:RecordService
-  ){
-  }
+  constructor(private readonly store:Store
+  ){ }
 
   closeModal(){
     this.store.dispatch(closeModal());
@@ -46,37 +44,36 @@ export class FormContainerComponent {
    saveSwitch(modalState:ModalState){
     const form =  this.formGroup.value;
     const data = modalState.data;
-    console.log(data, 'modal data')
       switch(modalState.type){
         case 'new-record': {
           const recordCleaned = this.cleanRecord(form);
           if(recordCleaned){
-            this.recordService.addNewRecord(recordCleaned);
+            this.store.dispatch(saveNewRecord({recordRequest:recordCleaned}))
           }
           break;
         }
         case 'modify-record': {
-          const recordCleaned = this.cleanModifyRecord(form);
-          if(recordCleaned){
-            this.recordService.modificateRecord(recordCleaned);
+          const recordRequest = this.cleanModifyRecord(form);
+          if(recordRequest){
+            this.store.dispatch(modifyRecord({recordId:modalState.data!.recordId, recordRequest}))
           }
           break;
         }
         case 'delete-record': {
-          this.recordService.deleteRecord(this.recordId!);
+          this.store.dispatch(removeRecord({recordId:modalState.data!.recordId}));
           break;
         }
         case 'new-definition':{
-          const definitionCleaned = this.cleanDefinition(form);
-          if(definitionCleaned){
-            this.recordService.addNewDefinition(data!.recordId, definitionCleaned);
+          const definitionRequest = this.cleanDefinition(form);
+          if(definitionRequest){
+            this.store.dispatch(saveNewDefinition({recordId:modalState.data!.recordId, definitionRequest}));
           }
           break;
         }
         case 'new-example':{
-          const exampleCleaned = this.cleanExample(form);
-          if(exampleCleaned){
-            this.recordService.addNewExample(data!.recordId, data!.definitionId!, exampleCleaned);
+          const exampleRequest = this.cleanExample(form);
+          if(exampleRequest){
+            this.store.dispatch(saveNewExample({recordId:modalState.data!.recordId, definitionId:data!.definitionId!, exampleRequest}));
           }
           break;
         }
@@ -84,27 +81,25 @@ export class FormContainerComponent {
       }
    }
 
-   cleanModifyRecord(recordForm:any):RecordInterface | undefined{
+   cleanModifyRecord(recordForm:any):RequestNewRecord | undefined{
     const defs = this.cleanModificationDefinitionArray(recordForm);
 
     if (recordForm.value){
       return {
         definitions: defs,
-        modificationDate: new Date(),
         type:recordForm.type,
-        value:recordForm.value,
-        recordId:recordForm.recordId ?? crypto.randomUUID()
+        value:recordForm.value
       }
     }
     return undefined;
   }
 
-  cleanModificationDefinitionArray(form:any){
+  cleanModificationDefinitionArray(form:any):DefinitionNewRequest[]{
     return form.definitions.reduce((definitions:DefinitionInterface[], definitionForm:any) => {
 
       if(definitionForm.translation){
         const def:DefinitionInterface = {
-          definitionId:definitionForm.definitionId ?? crypto.randomUUID(),
+          definitionId:definitionForm.definitionId,
           translation:definitionForm.translation,
           type:definitionForm.defType,
           examples:this.cleanModificationExampleArray(definitionForm)
@@ -119,7 +114,7 @@ export class FormContainerComponent {
     return definitionForm.examples.reduce((examples:ExampleInterface[], exampleForm:ExampleInterface) => {
       if(exampleForm.sentence || exampleForm.translation){
         examples.push({
-          exampleId: exampleForm.exampleId ?? crypto.randomUUID(),
+          exampleId: exampleForm.exampleId,
           sentence:exampleForm.sentence,
           translation: exampleForm.translation
         })
@@ -130,43 +125,37 @@ export class FormContainerComponent {
 
 
 
-   cleanRecord(recordForm:any):RecordInterface | undefined{
+   cleanRecord(recordForm:any):RequestNewRecord | undefined{
     const defs = this.cleanDefinitionArray(recordForm);
 
     if (recordForm.value){
       return {
-        creationDate: new Date(),
         definitions: defs,
-        modificationDate: new Date(),
         type:recordForm.type,
-        value:recordForm.value,
-        recordId:crypto.randomUUID()
+        value:recordForm.value
       }
     }
     return undefined;
   }
 
-  cleanDefinition(definitionForm:any):DefinitionInterface | undefined{
+  cleanDefinition(definitionForm:any):DefinitionNewRequest | undefined{
     if(definitionForm.translation){
       return {
-        definitionId:crypto.randomUUID(),
         translation:definitionForm.translation,
-        type:definitionForm.defType,
+        type:definitionForm.type,
         examples:this.cleanExampleArray(definitionForm)
       }
     }
     return undefined;
-
   }
 
   cleanDefinitionArray(form:any){
-    return form.definitions.reduce((definitions:DefinitionInterface[], definitionForm:any) => {
+    return form.definitions.reduce((definitions:DefinitionNewRequest[], definitionForm:DefinitionNewRequest) => {
 
       if(definitionForm.translation){
-        const def:DefinitionInterface = {
-          definitionId:crypto.randomUUID(),
+        const def:DefinitionNewRequest = {
           translation:definitionForm.translation,
-          type:definitionForm.defType,
+          type:definitionForm.type,
           examples:this.cleanExampleArray(definitionForm)
         }
         definitions.push(def)
@@ -176,11 +165,10 @@ export class FormContainerComponent {
 
   }
 
-  cleanExampleArray(definitionForm:any): ExampleInterface[]{
-    return definitionForm.examples.reduce((examples:ExampleInterface[], exampleForm:ExampleInterface) => {
+  cleanExampleArray(definitionForm:any): ExampleNewRequest[]{
+    return definitionForm.examples.reduce((examples:ExampleNewRequest[], exampleForm:ExampleNewRequest) => {
       if(exampleForm.sentence || exampleForm.translation){
         examples.push({
-          exampleId: crypto.randomUUID(),
           sentence:exampleForm.sentence,
           translation: exampleForm.translation
         })
@@ -189,10 +177,9 @@ export class FormContainerComponent {
     }, [])
   }
 
-  cleanExample(exampleForm:any): ExampleInterface | undefined{
+  cleanExample(exampleForm:any): ExampleNewRequest | undefined{
       if(exampleForm.sentence || exampleForm.translation){
         return {
-          exampleId: crypto.randomUUID(),
           sentence:exampleForm.sentence,
           translation: exampleForm.translation
         }

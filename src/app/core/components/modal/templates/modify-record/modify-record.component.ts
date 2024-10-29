@@ -21,7 +21,7 @@ import { FormButtonComponent } from '../../../buttons/form-button/form-button.co
 })
 export class ModifyRecordComponent implements OnInit, OnDestroy{
 
-  formGroup:FormGroup =new FormGroup({
+  formGroup:FormGroup = new FormGroup({
     _id: new FormControl(),
     value: new FormControl(),
     type: new FormControl('WORD'),
@@ -46,28 +46,34 @@ export class ModifyRecordComponent implements OnInit, OnDestroy{
             recordId:record.recordId
           })
 
-          record.definitions.forEach((definition:DefinitionInterface) => {
-            const def = this.newDefinition();
-            def.patchValue({
-                definitionId:definition.definitionId,
-                translation:definition.translation,
-                defType:definition.type
-            })
-
-            definition.examples.forEach((example:ExampleInterface) => {
-              const examp = this.newExampleGroup();
-
-              examp.patchValue({
-                sentence:example.sentence,
-                translation:example.translation,
-                exampleId:example.exampleId
+          if(record.definitions){
+            record.definitions.forEach((definition:DefinitionInterface) => {
+              const def = this.newDefinition();
+              def.patchValue({
+                  definitionId:definition.definitionId,
+                  translation:definition.translation,
+                  defType:definition.type
               })
-              const defGroup = def.get('examples') as FormArray;
-              defGroup.push(examp);
+
+              if(definition.examples){
+                definition.examples.forEach((example:ExampleInterface) => {
+                  const examp = this.newExampleGroup();
+
+                  examp.patchValue({
+                    sentence:example.sentence,
+                    translation:example.translation,
+                    exampleId:example.exampleId
+                  })
+                  const defGroup = def.get('examples') as FormArray;
+                  defGroup.push(examp);
+                })
+              }
+
+              this.definitions().push(def);
             })
-            this.definitions().push(def);
-          })
-        })
+          }
+        }
+      )
       )
       .subscribe()
   }

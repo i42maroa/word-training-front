@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { loadRecordList } from '../../state/actions/context.actions';
+import { getRecordsList, rootPageTakeOff } from '../../state/actions/context.actions';
 import { selectRecordList } from '../../state/selectors/data.selector';
 import { PaginationRecordResponse } from '../../data/pagination.interface';
 
@@ -23,6 +23,7 @@ export class LandingPageComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadRecordList())
+    this.store.dispatch(getRecordsList())
+    this.store.dispatch(rootPageTakeOff())
   }
 }

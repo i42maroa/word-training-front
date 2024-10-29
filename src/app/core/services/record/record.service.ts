@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, of, tap } from 'rxjs';
-import { DefinitionInterface, EXAMPLE_RECORD, ExampleInterface, RecordInterface } from '../../../data/record.interface';
+import { Observable, of, tap } from 'rxjs';
+import { DefinitionInterface, RecordInterface } from '../../../data/record.interface';
 import { NotificationService } from '../notification/notification.service';
 import { HttpClient } from '@angular/common/http';
 import { PaginationRecordResponse } from '../../../data/pagination.interface';
+import { DefinitionNewRequest, ExampleNewRequest, RequestNewRecord } from '../../../data/api.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecordService {
 
- private $recordList= new BehaviorSubject<Map<string, RecordInterface>>(new Map([[EXAMPLE_RECORD.recordId, EXAMPLE_RECORD]]));
 
 constructor(
   private readonly notification:NotificationService,
@@ -27,25 +27,28 @@ constructor(
  }
 
 
- addNewRecord(record:RecordInterface ){
-  this.$recordList.value.set(record.recordId, record);
-  this.notification.showSuccessfullyMessage("Registro añadido exitosamente");
+ addNewRecord(record:RequestNewRecord ): Observable<RecordInterface>{
+  return this.http.post<RecordInterface>("http://localhost:8080/record", record)
+  .pipe(tap(m => console.log(m)))
  }
 
- modificateRecord(record:RecordInterface){
-  this.notification.showSuccessfullyMessage("Registro modificado exitosamente");
+ modificateRecord(recordId: string, modifiedRecord:RecordInterface): Observable<RecordInterface>{
+  return this.http.put<RecordInterface>("http://localhost:8080/record/" + recordId, modifiedRecord)
+  .pipe(tap(m => console.log(m)))
  }
 
- deleteRecord(recordId:string){
-  this.notification.showSuccessfullyMessage("Registro eliminado exitosamente");
+ deleteRecord(recordId:string):Observable<any>{
+  return this.http.delete("http://localhost:8080/record/" + recordId)
  }
 
- addNewDefinition(id:string, definition:DefinitionInterface){
-  this.notification.showSuccessfullyMessage("Definicion añadida exitosamente");
+ addNewDefinition(id:string, definition:DefinitionNewRequest){
+  return this.http.post<DefinitionInterface>("http://localhost:8080/record/"+ id + "/definition", definition)
+  .pipe(tap(m => console.log(m)))
  }
 
- addNewExample(id:string, idDefinition:string, example: ExampleInterface){
-  this.notification.showSuccessfullyMessage("Ejemplo añadido exitosamente");
+ addNewExample(id:string, idDefinition:string, example: ExampleNewRequest){
+  return this.http.post<DefinitionInterface>("http://localhost:8080/record/"+ id + "/definition/" + idDefinition + "/example", example)
+  .pipe(tap(m => console.log(m)))
  }
 
  getRecordList():Observable<PaginationRecordResponse>{

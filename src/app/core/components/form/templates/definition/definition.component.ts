@@ -23,7 +23,7 @@ export class FormTemplateDefinitionComponent implements OnInit{
 
   ngOnInit(): void {
     this.formGroup.addControl('translation', new FormControl());
-    this.formGroup.addControl('defType', new FormControl('NOUN'));
+    this.formGroup.addControl('type', new FormControl('NOUN'));
     this.formGroup.addControl('examples', new FormArray([this.newExample()]));
   }
 

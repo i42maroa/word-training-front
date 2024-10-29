@@ -45,7 +45,7 @@ export const selectMenuShow = createSelector(
 )
 
 
-export const selectPage = createSelector(
+export const selectMenuType = createSelector(
   selectWordsFeature,
-  (state:InterfaceState) => state.page
+  (state:InterfaceState) => state.menu.type
 )

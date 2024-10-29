@@ -5,4 +5,5 @@ import { RecordDetailPageComponent } from './page/record-detail-page/record-deta
 export const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'detail/:recordId', component: RecordDetailPageComponent },
+  // { path: '**', component: PageNotFoundComponent },
 ];

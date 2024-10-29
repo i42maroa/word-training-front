@@ -3,7 +3,7 @@ export interface RecordInterface {
   value:string;
   type:RecordType;
   creationDate?:Date;
-  modificationDate:Date;
+  modificationDate?:Date;
   definitions:DefinitionInterface[];
 }
 

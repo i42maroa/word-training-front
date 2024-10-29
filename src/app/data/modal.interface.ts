@@ -1,6 +1,5 @@
 
 export interface InterfaceState{
-  page:PageUbication,
   buttons:ButtonsState,
   modal:ModalState,
   menu:MenuState,
@@ -26,6 +25,7 @@ export interface ButtonsState{
 
 export interface MenuState{
   show:boolean;
+  type: MenuType
 }
 
 export type ModalType = RecordOperation | DefinitionOperation | ExampleOperation;
@@ -35,10 +35,9 @@ export type RecordOperation = 'new-record' | 'modify-record' | 'delete-record';
 export type DefinitionOperation = 'new-definition' | 'modify-definition' | 'delete-definition';
 export type ExampleOperation = 'new-example' | 'modify-example' | 'delete-example';
 
-export type PageUbication = 'root' | 'detail' ;
+export type MenuType = 'root' | 'detail' ;
 
 export const INTERFACE_INITIAL_STATE:InterfaceState ={
-  page:'root',
   buttons:{
     show:true,
     buttonType:'add'
@@ -53,7 +52,8 @@ export const INTERFACE_INITIAL_STATE:InterfaceState ={
     }
   },
   menu:{
-    show:false
+    show:false,
+    type:'root'
   },
   loading:false
 }

@@ -24,5 +24,4 @@ export class DeleteRecordComponent {
       map((value) => value.data!.recordId)
     )
   }
-
 }

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { checkIsRecordPrecharged } from '../../state/actions/data.actions';
 import { selectRecordDetail } from '../../state/selectors/data.selector';
+import { detailPageTakeOff } from '../../state/actions/context.actions';
 
 @Component({
   selector: 'app-record-detail-page',
@@ -21,7 +22,10 @@ export class RecordDetailPageComponent {
       this.store.dispatch(checkIsRecordPrecharged({recordId}));
   }
 
-  constructor(private readonly store:Store){}
+  constructor(private readonly store:Store){
+    this.store.dispatch(detailPageTakeOff());
+
+  }
 
   get record$(): Observable<RecordInterface| undefined>{
     return this.store.select(selectRecordDetail);
