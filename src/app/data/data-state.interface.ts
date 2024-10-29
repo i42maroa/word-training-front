@@ -3,7 +3,13 @@ import { RecordInterface } from "./record.interface";
 
 export interface DataInterfaceState{
   recordList:PaginationRecordResponse;
+  pagination:Pagination;
   record?:RecordInterface;
+}
+
+export interface Pagination{
+  page:number;
+  size:number;
 }
 
 export const DATA_INITIAL_STATE:DataInterfaceState={
@@ -14,5 +20,9 @@ export const DATA_INITIAL_STATE:DataInterfaceState={
       hasPrevious:false,
       totalCount:0
     }
+  },
+  pagination:{
+    page:0,
+    size:20
   }
 }

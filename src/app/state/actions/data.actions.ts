@@ -6,3 +6,6 @@ export const loadRecordListData =  createAction('[Data] load record data.', prop
 
 export const checkIsRecordPrecharged =  createAction('[Data] checking record detail.', props<{ recordId:string}>());
 export const loadRecordDetail =  createAction('[Data] load record detail.', props<{ record:RecordInterface}>());
+
+
+export const changePaginationPage = createAction('[Data] changing pagination page.', props<{ page:number}>());

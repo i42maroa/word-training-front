@@ -15,12 +15,6 @@
         }
       </div>
       }
-
-      @if(paginationRecords.pageInfo; as info){
-        hasNext: {{info.hasNext}}
-        hasPrev: {{info.hasPrevious}}
-        count: {{info.totalCount}}
-      }
-
+      <app-paginator/>
   </div>
 }

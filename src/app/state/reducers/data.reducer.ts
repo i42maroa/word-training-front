@@ -13,5 +13,8 @@ export const dataReducer = createReducer(
   }),
   on(actions.loadRecordDetail, (state, { record }) => {
     return {...state, record}
+  }),
+  on(actions.changePaginationPage, (state, { page }) => {
+    return {...state, pagination:{...state.pagination, page:page }}
   })
 )

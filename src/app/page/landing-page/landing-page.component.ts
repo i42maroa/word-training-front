@@ -6,11 +6,12 @@ import { Store } from '@ngrx/store';
 import { getRecordsList, rootPageTakeOff } from '../../state/actions/context.actions';
 import { selectRecordList } from '../../state/selectors/data.selector';
 import { PaginationRecordResponse } from '../../data/pagination.interface';
+import { PaginatorComponent } from '../../core/components/paginator/paginator.component';
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, PaginatorComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
 })

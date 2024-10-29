@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, tap } from 'rxjs';
+import { exhaustMap, map, mergeMap, Observable, of, tap } from 'rxjs';
 import { DefinitionInterface, RecordInterface } from '../../../data/record.interface';
 import { NotificationService } from '../notification/notification.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { PaginationRecordResponse } from '../../../data/pagination.interface';
 import { DefinitionNewRequest, ExampleNewRequest, RequestNewRecord } from '../../../data/api.interface';
+import { Store } from '@ngrx/store';
+import { selectPagination } from '../../../state/selectors/data.selector';
+import { Pagination } from '../../../data/data-state.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +17,7 @@ export class RecordService {
 
 constructor(
   private readonly notification:NotificationService,
+  private readonly store:Store,
   private readonly http:HttpClient){ }
 
  getRecordsByFilters(filter:any):Observable<RecordInterface[]>{
@@ -52,7 +56,12 @@ constructor(
  }
 
  getRecordList():Observable<PaginationRecordResponse>{
-    return this.http.get<PaginationRecordResponse>("http://localhost:8080/record/page/WORD")
-    .pipe(tap(m => console.log(m)));
+  return this.store.select(selectPagination)
+     .pipe(
+       mergeMap((pagination: Pagination) => {
+         const options = { params: new HttpParams().set('page', pagination.page).set('size', pagination.size) };
+         return this.http.get<PaginationRecordResponse>("http://localhost:8080/record/page/WORD", options);
+       }),
+       tap(m => console.log(m)));
  }
 }

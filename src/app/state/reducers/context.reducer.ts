@@ -16,10 +16,10 @@ export const interfaceReducer = createReducer(
       modal:{...state.modal, show:false}}
   }),
 
-  on(actions.getRecordDetail, (state, {recordId}) => {
-    const type = 'add-definition' as ButtonType;
-    return {...state, menu:{...state.menu, show:false}, buttons:{...state.buttons, show:true, buttonType:type}, modal:{...state.modal, data:{recordId:recordId}}}
-  }),
+  // on(actions.getRecordDetail, (state, {recordId}) => {
+  //   const type = 'add-definition' as ButtonType;
+  //   return {...state, menu:{...state.menu, show:false}, buttons:{...state.buttons, show:true, buttonType:type}, modal:{...state.modal, data:{recordId:recordId}}}
+  // }),
   on(actions.showMenu, (state) => {
     return {...state, menu:{...state.menu, show:true}, buttons:{...state.buttons, show:false},  modal:{...state.modal, show:false}}
   }),

@@ -1,0 +1,14 @@
+
+@if(pageInfo | async; as pageInfo){
+  <div class="container">
+
+    @if(pageInfo.hasPrevious){
+      <button (click)="prevPage()">-</button>
+    }
+
+    @if(pageInfo.hasNext){
+      <button (click)="nextPage()">+</button>
+    }
+    {{page$ | async}}
+  </div>
+}

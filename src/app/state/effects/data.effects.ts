@@ -1,10 +1,8 @@
 import { inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { checkIsRecordPrecharged, loadRecordDetail, loadRecordListData } from "../actions/data.actions";
-import { exhaustMap, map } from "rxjs";
-import { getRecordDetail, loadRecordsListSuccessfully } from "../actions/context.actions";
-import { Store } from "@ngrx/store";
-import { selectRecordList } from "../selectors/data.selector";
+import { changePaginationPage, checkIsRecordPrecharged, loadRecordListData } from "../actions/data.actions";
+import { getRecordDetail, getRecordsList, loadRecordsListSuccessfully } from "../actions/context.actions";
+import { map } from "rxjs";
 
 export const loadRecordSuccessfull = createEffect(
   (actions$ = inject(Actions)) => {
@@ -18,21 +16,21 @@ export const loadRecordSuccessfull = createEffect(
 
 
 export const loadRecordDetailPrecharge = createEffect(
-  (actions$ = inject(Actions), store = inject(Store)) => {
+  (actions$ = inject(Actions)) => {
     return actions$.pipe(
       ofType(checkIsRecordPrecharged),
-      exhaustMap(data => store.select(selectRecordList)
-        .pipe(
-          map(recordList => {
-            const isInList = recordList.items.map(r => r.recordId).includes(data.recordId);
-            if (isInList){
-             return loadRecordDetail({record: recordList.items.find(r => r.recordId === data.recordId)!})
-            }else{
-             return getRecordDetail({recordId:data.recordId});
-            }
-          })
-      )
-      )
+      map(data => getRecordDetail({recordId:data.recordId}))
+    );
+  },
+  { functional: true }
+);
+
+
+export const changePagination = createEffect(
+  (actions$ = inject(Actions)) => {
+    return actions$.pipe(
+      ofType(changePaginationPage),
+      map(() => getRecordsList())
     );
   },
   { functional: true }
