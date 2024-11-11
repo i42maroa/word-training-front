@@ -1,9 +1,14 @@
 
+
+<app-filters/>
 @if(recordList | async; as paginationRecords){
   <div class="container">
     @for (record of paginationRecords.items; track $index) {
       <div [routerLink]="['/detail/', record.recordId]" class="record">
-        <span class="recordTag"></span>
+        <span [ngClass]="{
+          'wordTag': record.type ==='WORD',
+          'phrasalTag':record.type ==='PHRASAL',
+          'expressionTag':record.type ==='EXPRESSION'}"></span>
         <span class="recordValue">{{record.value}}</span>
 
         @if(record.definitions.length > 0){
@@ -16,5 +21,11 @@
       </div>
       }
       <app-paginator/>
+      @if(paginationRecords.items.length === 0){
+        No hay registros
+      }
   </div>
+}
+@else{
+  No hay registros
 }

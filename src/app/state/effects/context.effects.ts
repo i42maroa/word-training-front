@@ -1,22 +1,24 @@
 import { inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, exhaustMap, map, of } from "rxjs";
-import { getRecordDetail, getRecordsList, removeRecord, removeRecordSuccessfull, saveNewDefinition, saveNewDefinitionSuccessfull, saveNewExample, saveNewExampleSuccessfull, saveNewRecord, saveNewRecordSuccessfull } from "../actions/context.actions";
+import { catchError, exhaustMap, map, mergeMap, of, switchMap, tap } from "rxjs";
+import { errorInApi, getRecordDetail, getRecordDetailSuccessfull, getRecordsList, modifyRecord, modifyRecordSuccessfull, removeRecord, removeRecordSuccessfull, saveNewDefinition, saveNewDefinitionSuccessfull, saveNewExample, saveNewExampleSuccessfull, saveNewRecord, saveNewRecordSuccessfull } from "../actions/context.actions";
 import { RecordService } from "../../core/services/record/record.service";
 import { loadRecordDetail, loadRecordListData } from "../actions/data.actions";
 import { Router } from "@angular/router";
+import { NotificationService } from "../../core/services/notification/notification.service";
 
 export const loadListRecord = createEffect(
   (actions$ = inject(Actions), recordService = inject(RecordService)) => {
     return actions$.pipe(
       ofType(getRecordsList),
-      exhaustMap(() =>
+      mergeMap(() =>
         recordService.getRecordList()
         .pipe(
           map((recordList) => loadRecordListData({ recordList })),
-          catchError(() => of())
+          catchError(() => of(errorInApi()))
         )
-      )
+      ),
+      tap(e => console.log("load"))
     );
   },
   { functional: true }
@@ -28,10 +30,13 @@ export const tryloadRecordDetail = createEffect(
       ofType(getRecordDetail),
       exhaustMap(data =>
         recordService.getRecordDetail(data.recordId)
-        .pipe(
-          map(record => loadRecordDetail({ record: record! })),
-          catchError(() => of())
-        )
+          .pipe(
+            switchMap(record =>
+              of(getRecordDetailSuccessfull(),
+                loadRecordDetail({ record: record!}))
+            ),
+            catchError(() => of(errorInApi()))
+          )
       )
     );
   },
@@ -40,14 +45,17 @@ export const tryloadRecordDetail = createEffect(
 
 
 export const trySaveNewRecord = createEffect(
-  (actions$ = inject(Actions), recordService = inject(RecordService)) => {
+  (actions$ = inject(Actions), recordService = inject(RecordService), notification = inject(NotificationService)) => {
     return actions$.pipe(
       ofType(saveNewRecord),
       exhaustMap(data =>
         recordService.addNewRecord(data.recordRequest)
         .pipe(
-          map(() => saveNewRecordSuccessfull()),
-          map(() => getRecordsList())
+          mergeMap(() => of(saveNewRecordSuccessfull(),
+          getRecordsList()
+        )),
+          tap(() => notification.showSuccessfullyMessage("Nuevo registro añadido correctamente")),
+          catchError(() => of(errorInApi()))
         )
       )
     );
@@ -55,15 +63,19 @@ export const trySaveNewRecord = createEffect(
   { functional: true }
 );
 
+
 export const trySaveNewDefinition = createEffect(
-  (actions$ = inject(Actions), recordService = inject(RecordService)) => {
+  (actions$ = inject(Actions), recordService = inject(RecordService), notification = inject(NotificationService)) => {
     return actions$.pipe(
       ofType(saveNewDefinition),
       exhaustMap(data =>
         recordService.addNewDefinition(data.recordId, data.definitionRequest)
         .pipe(
-          map(() => saveNewDefinitionSuccessfull()),
-          map(() => getRecordDetail({recordId:data.recordId}))
+          switchMap(record => of(
+              saveNewDefinitionSuccessfull(),
+              loadRecordDetail({ record}))
+          ),
+          tap(() => notification.showSuccessfullyMessage("Definición añadida correctamente"))
         )
       )
     );
@@ -72,14 +84,16 @@ export const trySaveNewDefinition = createEffect(
 );
 
 export const trySaveNewExample = createEffect(
-  (actions$ = inject(Actions), recordService = inject(RecordService)) => {
+  (actions$ = inject(Actions), recordService = inject(RecordService), notification = inject(NotificationService)) => {
     return actions$.pipe(
       ofType(saveNewExample),
       exhaustMap(data =>
         recordService.addNewExample(data.recordId, data.definitionId, data.exampleRequest)
         .pipe(
-          map(() => saveNewExampleSuccessfull()),
-          map(() => getRecordDetail({recordId:data.recordId}))
+          switchMap(record => of(saveNewExampleSuccessfull(),
+          loadRecordDetail({ record}))),
+          tap(() => notification.showSuccessfullyMessage("Ejemplo añadido correctamente")),
+          catchError(() => of(errorInApi()))
         )
       )
     );
@@ -87,8 +101,28 @@ export const trySaveNewExample = createEffect(
   { functional: true }
 );
 
+export const tryModifyRecord = createEffect(
+  (actions$ = inject(Actions), recordService = inject(RecordService), notification = inject(NotificationService)) => {
+    return actions$.pipe(
+      ofType(modifyRecord),
+      exhaustMap(data =>
+        recordService.modificateRecord(data.recordId, data.recordRequest)
+          .pipe(
+            switchMap(record => of(
+              modifyRecordSuccessfull(), loadRecordDetail({record}))
+            ),
+            tap(() => notification.showSuccessfullyMessage("Registro modificado correctamente")),
+            catchError(() => of(errorInApi()))
+          )
+    )
+    );
+  },
+  { functional: true }
+);
+
+
 export const tryRemoveRecord = createEffect(
-  (actions$ = inject(Actions), recordService = inject(RecordService), router = inject(Router)) => {
+  (actions$ = inject(Actions), recordService = inject(RecordService), router = inject(Router), notification = inject(NotificationService)) => {
     return actions$.pipe(
       ofType(removeRecord),
       exhaustMap(data =>
@@ -97,8 +131,9 @@ export const tryRemoveRecord = createEffect(
           map(() => {
             router.navigate(['/']);
             return removeRecordSuccessfull();
-          }
-      )))
+          }),
+          tap(() => notification.showSuccessfullyMessage("Registro eliminado correctamente"))
+    ))
     );
   },
   { functional: true }

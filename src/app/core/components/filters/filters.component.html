@@ -1,0 +1,17 @@
+<form class="container" [formGroup]="filters">
+   <input type="text" formControlName="text">
+
+   <div class="typeContainerOption" formArrayName="typeIn">
+    @for(type of types().controls; track $index; let typeIndex = $index){
+      <label>
+        <input type="checkbox" [formControlName]="typeIndex" >
+        {{options[typeIndex].description}}
+      </label>
+    }
+   </div>
+   <label>
+      <input type="checkbox" formControlName="pending" >
+      Pendientes
+    </label>
+   <button (click)="search()">search</button>
+</form>

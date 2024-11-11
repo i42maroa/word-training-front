@@ -2,8 +2,7 @@
 export interface InterfaceState{
   buttons:ButtonsState,
   modal:ModalState,
-  menu:MenuState,
-  loading:boolean
+  menu:MenuState
 }
 
 export interface ModalDataState {
@@ -54,6 +53,5 @@ export const INTERFACE_INITIAL_STATE:InterfaceState ={
   menu:{
     show:false,
     type:'root'
-  },
-  loading:false
+  }
 }

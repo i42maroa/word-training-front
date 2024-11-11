@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { closeModal, modifyRecord, removeRecord, saveNewDefinition, saveNewExample, saveNewRecord } from '../../../../state/actions/context.actions';
@@ -16,7 +16,7 @@ import { DefinitionNewRequest, ExampleNewRequest, RequestNewRecord } from '../..
   templateUrl: './form-container.component.html',
   styleUrl: './form-container.component.css'
 })
-export class FormContainerComponent {
+export class FormContainerComponent{
 
   @Input() formGroup: FormGroup  =new FormGroup({});
   @Input() recordId?:string | null;
@@ -36,12 +36,13 @@ export class FormContainerComponent {
     const sub = this.modalData
       .pipe( map((val) => this.saveSwitch(val))).subscribe();
 
-      sub.unsubscribe();
-     this.store.dispatch(closeModal());
+    sub.unsubscribe();
+    this.store.dispatch(closeModal());
    }
 
 
    saveSwitch(modalState:ModalState){
+
     const form =  this.formGroup.value;
     const data = modalState.data;
       switch(modalState.type){
@@ -54,6 +55,7 @@ export class FormContainerComponent {
         }
         case 'modify-record': {
           const recordRequest = this.cleanModifyRecord(form);
+          console.log(recordRequest)
           if(recordRequest){
             this.store.dispatch(modifyRecord({recordId:modalState.data!.recordId, recordRequest}))
           }

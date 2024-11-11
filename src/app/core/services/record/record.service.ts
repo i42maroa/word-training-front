@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { exhaustMap, map, mergeMap, Observable, of, tap } from 'rxjs';
-import { DefinitionInterface, RecordInterface } from '../../../data/record.interface';
+import { first, Observable, of, switchMap, tap } from 'rxjs';
+import { RecordInterface } from '../../../data/record.interface';
 import { NotificationService } from '../notification/notification.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { PaginationRecordResponse } from '../../../data/pagination.interface';
 import { DefinitionNewRequest, ExampleNewRequest, RequestNewRecord } from '../../../data/api.interface';
 import { Store } from '@ngrx/store';
-import { selectPagination } from '../../../state/selectors/data.selector';
-import { Pagination } from '../../../data/data-state.interface';
+import { selectData } from '../../../state/selectors/data.selector';
+import { DataInterfaceState} from '../../../data/data-state.interface';
+import { FiltersRequest, translateTypeInFilter } from '../../../data/filters';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ constructor(
   .pipe(tap(m => console.log(m)))
  }
 
- modificateRecord(recordId: string, modifiedRecord:RecordInterface): Observable<RecordInterface>{
+ modificateRecord(recordId: string, modifiedRecord:RequestNewRecord): Observable<RecordInterface>{
   return this.http.put<RecordInterface>("http://localhost:8080/record/" + recordId, modifiedRecord)
   .pipe(tap(m => console.log(m)))
  }
@@ -45,22 +46,36 @@ constructor(
   return this.http.delete("http://localhost:8080/record/" + recordId)
  }
 
- addNewDefinition(id:string, definition:DefinitionNewRequest){
-  return this.http.post<DefinitionInterface>("http://localhost:8080/record/"+ id + "/definition", definition)
+ addNewDefinition(id:string, definition:DefinitionNewRequest):Observable<RecordInterface>{
+  return this.http.post<RecordInterface>("http://localhost:8080/record/"+ id + "/definition", definition)
   .pipe(tap(m => console.log(m)))
  }
 
- addNewExample(id:string, idDefinition:string, example: ExampleNewRequest){
-  return this.http.post<DefinitionInterface>("http://localhost:8080/record/"+ id + "/definition/" + idDefinition + "/example", example)
+ addNewExample(id:string, idDefinition:string, example: ExampleNewRequest): Observable<RecordInterface>{
+  return this.http.post<RecordInterface>("http://localhost:8080/record/"+ id + "/definition/" + idDefinition + "/example", example)
   .pipe(tap(m => console.log(m)))
  }
 
  getRecordList():Observable<PaginationRecordResponse>{
-  return this.store.select(selectPagination)
+
+
+  return this.store.select(selectData)
      .pipe(
-       mergeMap((pagination: Pagination) => {
-         const options = { params: new HttpParams().set('page', pagination.page).set('size', pagination.size) };
-         return this.http.get<PaginationRecordResponse>("http://localhost:8080/record/page/WORD", options);
+      first(),
+      switchMap((data: DataInterfaceState) => {
+        console.log(data)
+        const params = new HttpParams()
+          .set('page', data.pagination.page)
+          .set('size', data.pagination.size);
+
+        const storeFilters = data.filters;
+        const body:FiltersRequest ={
+          typeIn: translateTypeInFilter(storeFilters.typeIn),
+          text: storeFilters.text,
+          pending: storeFilters.pending
+        };
+
+         return this.http.post<PaginationRecordResponse>("http://localhost:8080/record/page", body, { params});
        }),
        tap(m => console.log(m)));
  }

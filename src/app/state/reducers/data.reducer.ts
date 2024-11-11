@@ -16,5 +16,8 @@ export const dataReducer = createReducer(
   }),
   on(actions.changePaginationPage, (state, { page }) => {
     return {...state, pagination:{...state.pagination, page:page }}
-  })
+  }),
+  on(actions.changeFilters, (state, { filters }) => {
+    return {...state, filters, pagination:{...state.pagination, page:0,}}
+  }),
 )

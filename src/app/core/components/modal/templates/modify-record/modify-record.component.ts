@@ -5,12 +5,11 @@ import { FormButtonSecundaryComponent } from '../../../buttons/form-button-secun
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormContainerComponent } from '../../../form/form-container/form-container.component';
 import { Store } from '@ngrx/store';
-import { RecordService } from '../../../../services/record/record.service';
-import { selectModal } from '../../../../../state/selectors/context.selector';
-import { combineLatest, map, mergeMap, of, Subscription } from 'rxjs';
+import { map,Subscription } from 'rxjs';
 import { DefinitionInterface, ExampleInterface, RecordInterface } from '../../../../../data/record.interface';
 import { DeleteSvgComponent } from '../../../../svg/delete-svg/delete-svg.component';
 import { FormButtonComponent } from '../../../buttons/form-button/form-button.component';
+import { selectRecordDetail } from '../../../../../state/selectors/data.selector';
 
 @Component({
   selector: 'app-modify-record-modal',
@@ -22,7 +21,7 @@ import { FormButtonComponent } from '../../../buttons/form-button/form-button.co
 export class ModifyRecordComponent implements OnInit, OnDestroy{
 
   formGroup:FormGroup = new FormGroup({
-    _id: new FormControl(),
+    recordId: new FormControl(),
     value: new FormControl(),
     type: new FormControl('WORD'),
     definitions: new FormArray([])
@@ -30,16 +29,14 @@ export class ModifyRecordComponent implements OnInit, OnDestroy{
 
   subscriber!:Subscription;
 
-  constructor(private readonly recordService:RecordService,
+  constructor(
     private readonly store:Store){}
 
   ngOnInit(): void {
-    this.subscriber = this.store.select(selectModal)
+    this.subscriber = this.store.select(selectRecordDetail)
       .pipe(
-        map((value) => value.data!.recordId),
-        mergeMap((value) => combineLatest([of(value), this.recordService.getRecordDetail(value)])),
-        map(([, res2]) => {
-          const record = res2 as RecordInterface;
+        map((data) => {
+          const record = data as RecordInterface;
           this.formGroup.patchValue({
             value:record.value,
             type:record.type,

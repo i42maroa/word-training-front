@@ -1,8 +1,8 @@
-import { ActionReducerMap } from "@ngrx/store";
 import { interfaceReducer } from "./reducers/context.reducer";
 import { InterfaceState } from "../data/modal.interface";
 import { DataInterfaceState } from "../data/data-state.interface";
 import { dataReducer } from "./reducers/data.reducer";
+import { ActionReducerMap } from "@ngrx/store";
 
 export interface ContextState {
   interface: InterfaceState;

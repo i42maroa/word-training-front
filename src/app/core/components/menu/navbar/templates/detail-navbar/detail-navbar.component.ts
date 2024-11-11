@@ -2,8 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { showModal } from '../../../../../../state/actions/context.actions';
 import { map, Subscription, take } from 'rxjs';
-import { selectModalData } from '../../../../../../state/selectors/context.selector';
 import { NavbarButtonComponent } from '../../../../buttons/navbar-button/navbar-button.component';
+import { selectRecordDetail } from '../../../../../../state/selectors/data.selector';
 
 @Component({
   selector: 'app-detail-navbar',
@@ -19,7 +19,7 @@ export class DetailNavbarComponent implements OnDestroy {
   constructor(private readonly store:Store){}
 
   modifyRecord(){
-    this.subsciber = this.store.select(selectModalData)
+    this.subsciber = this.store.select(selectRecordDetail)
       .pipe(
         map(modal => modal!.recordId),
         take(1),
@@ -28,7 +28,7 @@ export class DetailNavbarComponent implements OnDestroy {
   }
 
   removeRecord(){
-    this.subsciber = this.store.select(selectModalData)
+    this.subsciber = this.store.select(selectRecordDetail)
       .pipe(
         map(modal => modal!.recordId),
         take(1),

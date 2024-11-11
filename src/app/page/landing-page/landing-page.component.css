@@ -21,8 +21,15 @@
 }
 
 
-.recordTag{
+.wordTag{
   background-color: red;
+}
+
+.phrasalTag{
+  background-color: blue;
+}
+.expressionTag{
+  background-color: green;
 }
 
 .definitions{

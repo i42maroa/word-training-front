@@ -4,9 +4,8 @@ import { DefinitionComponent } from '../../core/components/definition/definition
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { checkIsRecordPrecharged } from '../../state/actions/data.actions';
 import { selectRecordDetail } from '../../state/selectors/data.selector';
-import { detailPageTakeOff } from '../../state/actions/context.actions';
+import { detailPageTakeOff } from '../../state/actions/navigation.actions';
 
 @Component({
   selector: 'app-record-detail-page',
@@ -19,13 +18,10 @@ export class RecordDetailPageComponent {
 
   @Input() set recordId(recordId: string) {
     if(recordId)
-      this.store.dispatch(checkIsRecordPrecharged({recordId}));
+      this.store.dispatch(detailPageTakeOff({recordId}));
   }
 
-  constructor(private readonly store:Store){
-    this.store.dispatch(detailPageTakeOff());
-
-  }
+  constructor(private readonly store:Store){}
 
   get record$(): Observable<RecordInterface| undefined>{
     return this.store.select(selectRecordDetail);
