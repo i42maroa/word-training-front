@@ -8,15 +8,19 @@ import { PaginatorComponent } from '../../core/components/paginator/paginator.co
 import { goToDetail, landingPageTakeOff } from '../../state/actions/navigation.actions';
 import { FiltersComponent } from '../../core/components/filters/filters.component';
 import { RecordInterface } from '../../data/record.interface';
+import { isLoadingRecords } from '../../state/selectors/loading.selector';
+import { LoaderComponent } from '../../core/components/loader/loader.component';
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [CommonModule,PaginatorComponent, FiltersComponent],
+  imports: [CommonModule,PaginatorComponent, FiltersComponent, LoaderComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
 })
 export class LandingPageComponent implements OnInit{
+
+  items = [0,1,2,3]
 
   constructor(private readonly store:Store){}
 
@@ -30,5 +34,9 @@ export class LandingPageComponent implements OnInit{
 
   toDetail(record:RecordInterface){
     this.store.dispatch(goToDetail({record}))
+  }
+
+  get isLoadingRecords():Observable<boolean>{
+    return this.store.select(isLoadingRecords);
   }
 }

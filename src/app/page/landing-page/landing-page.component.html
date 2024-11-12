@@ -1,31 +1,39 @@
 
 
 <app-filters/>
-@if(recordList | async; as paginationRecords){
-  <div class="container">
-    @for (record of paginationRecords.items; track $index) {
-      <button (click)="toDetail(record)" class="record">
-        <span [ngClass]="{
-          'wordTag': record.type ==='WORD',
-          'phrasalTag':record.type ==='PHRASAL',
-          'expressionTag':record.type ==='EXPRESSION'}"></span>
-        <span class="recordValue">{{record.value}}</span>
 
-        @if(record.definitions.length > 0){
-          <div class="definitions">
-            @for (definitions of record.definitions; track $index) {
-              <span class="definitionText">{{definitions.translation}}</span>
-            }
-          </div>
+<div class="container">
+@if(isLoadingRecords | async){
+    <div class="loadingContainer">
+      <app-loader></app-loader>
+    </div>
+}
+  @if(recordList | async; as paginationRecords){
+
+      @for (record of paginationRecords.items; track $index) {
+        <button (click)="toDetail(record)" class="record">
+          <span [ngClass]="{
+            'wordTag': record.type ==='WORD',
+            'phrasalTag':record.type ==='PHRASAL',
+            'expressionTag':record.type ==='EXPRESSION'}"></span>
+          <span class="recordValue">{{record.value}}</span>
+
+          @if(record.definitions.length > 0){
+            <div class="definitions">
+              @for (definitions of record.definitions; track $index) {
+                <span class="definitionText">{{definitions.translation}}</span>
+              }
+            </div>
+          }
+        </button>
         }
-      </button>
-      }
-      <app-paginator/>
-      @if(paginationRecords.items.length === 0){
-        No hay registros
-      }
-  </div>
-}
-@else{
-  No hay registros
-}
+        <app-paginator/>
+        @if(paginationRecords.items.length === 0){
+          No hay registros
+        }
+  }
+  @else{
+    No hay registros
+  }
+</div>
+

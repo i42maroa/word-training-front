@@ -9,13 +9,13 @@ export const initialState:loadingInterfaceState = LOADING_INITIAL_STATE;
 export const loadingReducer = createReducer(
   initialState,
   on(actionsContext.errorInApi, (state,) => {
-    return {...state, isLoading:false}
+    return {...state, isLoading:false, isLoadingRecords:false}
   }),
   on(actionsContext.getRecordsList, (state,) => {
-    return {...state, isLoading:true}
+    return {...state, isLoadingRecords:true, isLoading:false}
   }),
   on(actionsContext.loadRecordsListSuccessfully, (state,) => {
-    return {...state, isLoading:false}
+    return {...state, isLoadingRecords:false}
   }),
   on(actionsContext.getRecordDetail, (state,) => {
     return {...state, isLoading:true}

@@ -7,3 +7,8 @@ export const isLoading = createSelector(
   selectDataFeature,
   (state:loadingInterfaceState) => state.isLoading
 )
+
+export const isLoadingRecords = createSelector(
+  selectDataFeature,
+  (state:loadingInterfaceState) => state.isLoadingRecords
+)
