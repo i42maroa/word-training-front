@@ -1,5 +1,5 @@
 
-import { FiltersStoraged } from "./filters";
+import { FiltersStoraged, INITIAL_FILTERS } from "./filters";
 import { PaginationRecordResponse } from "./pagination.interface";
 import { RecordInterface } from "./record.interface";
 
@@ -27,9 +27,6 @@ export const DATA_INITIAL_STATE:DataInterfaceState={
     page:0,
     size:10
   },
-  filters:{
-    text:"",
-    typeIn:[true, true, true],
-    pending:false
-  }
+  filters:INITIAL_FILTERS
 }
+

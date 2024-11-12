@@ -10,6 +10,12 @@ export interface FiltersRequest{
   pending:boolean;
 }
 
+export const INITIAL_FILTERS:FiltersStoraged = {
+  text:"",
+  typeIn:[true, true, true],
+  pending:false
+}
+
 
 export function translateTypeInFilter(typeIn:boolean[]):string[]{
   return  typeIn
