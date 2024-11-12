@@ -37,6 +37,15 @@ export class FiltersComponent implements OnInit{
     return typeIn.map(value => new FormControl(value));
   }
 
+  resetFilters(){
+      this.filters.patchValue({
+        pending:false,
+        text:"",
+        typeIn:[true, true, true]
+      })
+      this.search();
+  }
+
   search(){
     const filters = {...this.filters.value};
 

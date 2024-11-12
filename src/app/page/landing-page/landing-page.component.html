@@ -4,7 +4,7 @@
 @if(recordList | async; as paginationRecords){
   <div class="container">
     @for (record of paginationRecords.items; track $index) {
-      <div [routerLink]="['/detail/', record.recordId]" class="record">
+      <button (click)="toDetail(record)" class="record">
         <span [ngClass]="{
           'wordTag': record.type ==='WORD',
           'phrasalTag':record.type ==='PHRASAL',
@@ -18,7 +18,7 @@
             }
           </div>
         }
-      </div>
+      </button>
       }
       <app-paginator/>
       @if(paginationRecords.items.length === 0){

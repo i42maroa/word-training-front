@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectRecordList } from '../../state/selectors/data.selector';
 import { PaginationRecordResponse } from '../../data/pagination.interface';
 import { PaginatorComponent } from '../../core/components/paginator/paginator.component';
-import { landingPageTakeOff } from '../../state/actions/navigation.actions';
+import { goToDetail, landingPageTakeOff } from '../../state/actions/navigation.actions';
 import { FiltersComponent } from '../../core/components/filters/filters.component';
+import { RecordInterface } from '../../data/record.interface';
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, PaginatorComponent, FiltersComponent],
+  imports: [CommonModule,PaginatorComponent, FiltersComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
 })
@@ -26,5 +26,9 @@ export class LandingPageComponent implements OnInit{
 
   ngOnInit(): void {
     this.store.dispatch(landingPageTakeOff())
+  }
+
+  toDetail(record:RecordInterface){
+    this.store.dispatch(goToDetail({record}))
   }
 }

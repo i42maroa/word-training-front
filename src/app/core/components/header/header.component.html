@@ -1,9 +1,13 @@
 <div class="container">
   <a class="logo" [routerLink]="['/']">EnglishTraing</a>
 
-  @if(menu | async){
-    <button (click)="closeMenu()">close</button>
-  }@else{
-    <button (click)="showMenu()">Menu</button>
+  <!-- TODO: When we have functionality in root page, remove this -->
+  @if(!showMenuButton){
+    @if(menu | async){
+      <button (click)="closeMenu()">close</button>
+    }@else{
+      <button (click)="showMenu()">Menu</button>
+    }
   }
+
 </div>

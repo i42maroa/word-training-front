@@ -7,7 +7,7 @@ export const loadRecordListData =  createAction('[Data] load record data.', prop
 
 export const changeFilters =  createAction('[Data] change filters.', props<{ filters:FiltersStoraged}>());
 
-export const checkIsRecordPrecharged =  createAction('[Data] checking record detail.', props<{ recordId:string}>());
+export const checkIsRecordPrecharged =  createAction('[Data] checking record is loaded.', props<{ recordId:string}>());
 export const loadRecordDetail =  createAction('[Data] record detail loaded.', props<{ record:RecordInterface}>());
 
 
