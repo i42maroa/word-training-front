@@ -9,11 +9,13 @@ import { Store } from '@ngrx/store';
 import { selectMenuShow, selectShowModal } from './state/selectors/context.selector';
 import { CommonModule } from '@angular/common';
 import { ToastComponent } from './core/components/toast/toast.component';
+import { LoaderComponent } from './core/components/loader/loader.component';
+import { isLoading } from './state/selectors/loading.selector';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, RouterOutlet, ModalComponent, FloatButtonComponent, MenuComponent, ToastComponent],
+  imports: [CommonModule, HeaderComponent, RouterOutlet, ModalComponent, FloatButtonComponent, MenuComponent, ToastComponent, LoaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -28,5 +30,9 @@ export class AppComponent {
 
   get showModal(): Observable<boolean>{
     return this.store.select(selectShowModal);
+  }
+
+  get showLoader():Observable<boolean>{
+    return this.store.select(isLoading);
   }
 }

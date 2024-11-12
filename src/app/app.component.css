@@ -1,3 +1,7 @@
+.mainContainer{
+  position: relative;
+}
+
 .headerContainer{
   height: fit-content;
 }
@@ -47,4 +51,18 @@
   position: fixed;
   bottom: 3rem;
   right: 3rem;
+}
+
+.loaderContainer{
+  position: fixed;
+
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.loader{
+
+  margin: auto;
 }

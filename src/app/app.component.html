@@ -1,20 +1,31 @@
-<div class="headerContainer">
-  @if ((showModal | async)===false) {
-    <app-header/>
+<div class="mainContainer">
+
+
+  <div class="headerContainer">
+    @if ((showModal | async)===false) {
+      <app-header/>
+    }
+  </div>
+  <div class="main_container">
+
+
+    <router-outlet/>
+    @if (showModal | async) {
+    <app-modal class="modal"/>
+    }
+    @if(showMenu | async){
+      <app-menu class="menu"/>
+    }
+
+    <app-float-button class="float_button"/>
+
+    <app-toast/>
+  </div>
+
+  @if(showLoader| async){
+    <div class="loaderContainer">
+      <app-loader class="loader"/>
+    </div>
   }
-</div>
-<div class="main_container">
 
-
-  <router-outlet/>
-  @if (showModal | async) {
-  <app-modal class="modal"/>
-  }
-  @if(showMenu | async){
-    <app-menu class="menu"/>
-  }
-
-  <app-float-button class="float_button"/>
-
-  <app-toast/>
 </div>
