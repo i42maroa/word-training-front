@@ -4,10 +4,7 @@
     <app-form-select-field formControlName="type" [name]="'type'" [options]="optionDefinitionSelect"  [labelText]="'Tipo'"/>
   </app-form-row>
 
-  <div class="rowAdding">
-    <app-form-button-secundary  (click)="addExample()"> + Ejemplo</app-form-button-secundary>
 
-  </div>
    <div class="examplesContainer" formArrayName="examples" >
       @for(ex of examples().controls; track $index; let exampleIndex = $index){
         <div class="exampleContainer" [formGroupName]="exampleIndex" >
@@ -17,5 +14,8 @@
           <app-form-template-examples [formGroup]="exampleGroup(exampleIndex)"/>
         </div>
       }
+  </div>
+  <div class="rowAdding">
+    <app-form-button-secundary  (click)="addExample()"> + Ejemplo</app-form-button-secundary>
   </div>
 </div>

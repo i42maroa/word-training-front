@@ -31,8 +31,13 @@
   width: 100%;
   backdrop-filter: blur(10px);
   background-color: var(--shadow);
+  z-index: 1000;
 }
 
+
+.mainContainer .main_container .modal{
+  overflow: hidden;
+}
 
 .menu{
   position: absolute;

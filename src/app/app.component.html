@@ -8,11 +8,14 @@
   </div>
   <div class="main_container">
 
+    @if (showModal | async) {
+      <app-modal class="modal"/>
+      }
 
     <router-outlet/>
-    @if (showModal | async) {
-    <app-modal class="modal"/>
-    }
+
+
+
     @if(showMenu | async){
       <app-menu class="menu"/>
     }

@@ -26,4 +26,7 @@ export const dataReducer = createReducer(
   on(actionsContext.saveNewRecordSuccessfull, (state,) => {
     return {...state, filters:INITIAL_FILTERS, pagination:{...state.pagination, page:0}}
   }),
+  on(actionsContext.removeRecordSuccessfull, (state,) => {
+    return {...state, filters:INITIAL_FILTERS, pagination:{...state.pagination, page:0}}
+  }),
 )

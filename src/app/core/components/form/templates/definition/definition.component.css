@@ -24,13 +24,13 @@
   font-size: 14px;
   color: var(--primary);
   font-weight: 800;
-  margin: auto 0;
+  margin: auto 10px;
 }
 
 .examplesContainer{
   display: flex;
   flex-direction: column;
-  margin: 10px;
+  margin: 20px 10px;
 }
 
 .rowAdding{

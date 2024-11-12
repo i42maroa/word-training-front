@@ -8,6 +8,7 @@
 
 .formField{
   width: 100%;
+  position: sticky;
   border: 0;
   border-bottom: 2px solid var(--shadow);
   outline: 0;
@@ -16,6 +17,7 @@
   padding: 8px 0;
   background: transparent;
   transition: border-color 0.2s;
+  z-index: 5;
 }
 
 .formField::placeholder{
@@ -48,6 +50,10 @@
   margin: auto 5px;
 }
 
+.formField:focus{
+  border-bottom: 2px solid var(--primary);
+}
+
 .formField:focus + .formLabel{
   position: absolute;
   top: 0;
@@ -63,8 +69,12 @@
   font-weight:700;
 }
 
-.formField:not(placeholder-shown), .formField:focus {
+.formField:not(placeholder-shown), .formField:not(focus) {
   border-bottom: 2px solid var(--secondary);
+}
+
+.formField:focus{
+  border-bottom: 2px solid var(--primary);
 }
 
 .exampleField{
