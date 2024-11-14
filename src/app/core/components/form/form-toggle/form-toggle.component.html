@@ -1,0 +1,13 @@
+
+
+<div class="container">
+  <span class="label">{{textLabelByInput}}</span>
+  <label class="switch">
+    <input type="checkbox" [(ngModel)]="input" (ngModelChange)="onChange($event)" [name]="name">
+    <span class="slider round"></span>
+  </label>
+
+</div>
+
+
+<!-- <input type="checkbox" [ngModel]="input" (ngModelChange)="onChange($event)" [name]="name"> -->

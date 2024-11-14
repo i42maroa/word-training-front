@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { closeMenu, showMenu } from '../../../state/actions/context.actions';
+import { closeMenu, showMenu} from '../../../state/actions/context.actions';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';

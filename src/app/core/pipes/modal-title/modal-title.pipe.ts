@@ -19,6 +19,8 @@ export class ModalTitlePipe implements PipeTransform {
         return "Nuevo ejemplo";
       case 'modify-record':
           return "Modificar registro";
+      case 'search-record':
+            return "Buscar registros";
       default:
         return '';
     }

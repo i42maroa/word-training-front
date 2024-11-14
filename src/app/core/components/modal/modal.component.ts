@@ -10,11 +10,12 @@ import { AddDefinitionComponent } from './templates/add-definition/add-definitio
 import { ModalTitlePipe } from '../../pipes/modal-title/modal-title.pipe';
 import { ModifyRecordComponent } from './templates/modify-record/modify-record.component';
 import { DeleteRecordComponent } from './templates/delete-record/delete-record.component';
+import { SearchRecordComponent } from './templates/search-record/search-record.component';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [CommonModule, AddModalComponent, AddExampleComponent, AddDefinitionComponent, ModalTitlePipe, ModifyRecordComponent, DeleteRecordComponent],
+  imports: [CommonModule, AddModalComponent, AddExampleComponent, AddDefinitionComponent, ModalTitlePipe, ModifyRecordComponent, DeleteRecordComponent, SearchRecordComponent],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.css'
 })

@@ -1,0 +1,37 @@
+<app-form-container [formGroup]="filters">
+  <app-form-row>
+    <div class="searchInput" >
+      <app-search-svg class="svg"/>
+      <input type="text">
+    </div>
+  </app-form-row>
+
+  <div class="containerTypeOptions">
+
+    <div class="row">
+      <span class="title">Tipos</span>
+
+      <button class="fillButton" (click)="selectAll()">
+        <span class="fillButtonText">Marcar todo </span>
+        <app-check-svg class="checkSVG" [fillMode]="allSelected"/>
+      </button>
+    </div>
+
+
+    <div class="typeContainerOption" formArrayName="typeIn">
+
+      @for(type of types().controls; track $index; let typeIndex = $index){
+        <label class="checkbox" >
+          <input type="checkbox" [formControlName]="typeIndex" >
+            <span class="checkboxLabel">
+              {{options[typeIndex].description}}
+            </span>
+        </label>
+      }
+    </div>
+  </div>
+</app-form-container>
+
+
+
+

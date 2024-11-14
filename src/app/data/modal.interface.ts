@@ -27,12 +27,13 @@ export interface MenuState{
   type: MenuType
 }
 
-export type ModalType = RecordOperation | DefinitionOperation | ExampleOperation;
+export type ModalType = RecordOperation | DefinitionOperation | ExampleOperation | SearchOperation;
 
 export type ButtonType = 'add' | 'add-definition' ;
 export type RecordOperation = 'new-record' | 'modify-record' | 'delete-record';
 export type DefinitionOperation = 'new-definition' | 'modify-definition' | 'delete-definition';
 export type ExampleOperation = 'new-example' | 'modify-example' | 'delete-example';
+export type SearchOperation = 'search-record';
 
 export type MenuType = 'root' | 'detail' ;
 

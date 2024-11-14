@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { closeModal, modifyRecord, removeRecord, saveNewDefinition, saveNewExample, saveNewRecord } from '../../../../state/actions/context.actions';
@@ -8,6 +8,7 @@ import { selectModal } from '../../../../state/selectors/context.selector';
 import { map, Observable } from 'rxjs';
 import {  ModalState } from '../../../../data/modal.interface';
 import { DefinitionNewRequest, ExampleNewRequest, RequestNewRecord } from '../../../../data/api.interface';
+import { changeFilters } from '../../../../state/actions/data.actions';
 
 @Component({
   selector: 'app-form-container',
@@ -77,6 +78,12 @@ export class FormContainerComponent{
           if(exampleRequest){
             this.store.dispatch(saveNewExample({recordId:modalState.data!.recordId, definitionId:data!.definitionId!, exampleRequest}));
           }
+          break;
+        }
+        case 'search-record':{
+          const filters = {...this.formGroup.value};
+
+          this.store.dispatch(changeFilters({filters}));
           break;
         }
         default:
