@@ -1,9 +1,9 @@
 import { inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, exhaustMap, map, mergeMap, of, switchMap, tap } from "rxjs";
-import { errorInApi, getRecordDetail, getRecordDetailSuccessfull, getRecordsList, modifyRecord, modifyRecordSuccessfull, removeRecord, removeRecordSuccessfull, saveNewDefinition, saveNewDefinitionSuccessfull, saveNewExample, saveNewExampleSuccessfull, saveNewRecord, saveNewRecordSuccessfull } from "../actions/context.actions";
+import { errorInApi, getRecordDetail, getRecordDetailSuccessfull, getRecordsList, getRecordsListPaginated, modifyRecord, modifyRecordSuccessfull, removeRecord, removeRecordSuccessfull, saveNewDefinition, saveNewDefinitionSuccessfull, saveNewExample, saveNewExampleSuccessfull, saveNewRecord, saveNewRecordSuccessfull } from "../actions/context.actions";
 import { RecordService } from "../../core/services/record/record.service";
-import { loadRecordDetail, loadRecordListData } from "../actions/data.actions";
+import { addRecordListPaginatedData, loadRecordDetail, loadRecordListData } from "../actions/data.actions";
 import { Router } from "@angular/router";
 import { NotificationService } from "../../core/services/notification/notification.service";
 
@@ -23,6 +23,25 @@ export const loadListRecord = createEffect(
   },
   { functional: true }
 );
+
+export const tryloadListRecordPaginated = createEffect(
+  (actions$ = inject(Actions), recordService = inject(RecordService)) => {
+    return actions$.pipe(
+      ofType(getRecordsListPaginated),
+      mergeMap(() =>
+        recordService.getRecordList()
+        .pipe(
+          map((recordList) => addRecordListPaginatedData({ recordList })),
+          catchError(() => of(errorInApi()))
+        )
+      ),
+      tap(e => console.log("load"))
+    );
+  },
+  { functional: true }
+);
+
+
 
 export const tryloadRecordDetail = createEffect(
   (actions$ = inject(Actions), recordService = inject(RecordService)) => {

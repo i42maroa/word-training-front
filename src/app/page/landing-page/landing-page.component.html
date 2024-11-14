@@ -5,8 +5,11 @@
       <app-loader></app-loader>
     </div>
 }
+@else{
+
   @if(recordList | async; as paginationRecords){
 
+    <div class="recordListContainer">
       @for (record of paginationRecords.items; track $index) {
         <button (click)="toDetail(record)" class="record">
           <span [ngClass]="{
@@ -24,13 +27,9 @@
           }
         </button>
         }
-        <app-paginator/>
-        @if(paginationRecords.items.length === 0){
-          No hay registros
-        }
+      </div>
+      <app-paginator/>
   }
-  @else{
-    No hay registros
-  }
+}
 </div>
 

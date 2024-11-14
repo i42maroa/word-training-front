@@ -23,6 +23,11 @@ export const selectPageInfo = createSelector(
   (state:DataInterfaceState) => state.recordList.pageInfo
 )
 
+export const selectTotalCount= createSelector(
+  selectDataFeature,
+  (state:DataInterfaceState) => state.recordList.pageInfo.totalCount
+)
+
 export const selectPagination = createSelector(
   selectDataFeature,
   (state:DataInterfaceState) => state.pagination

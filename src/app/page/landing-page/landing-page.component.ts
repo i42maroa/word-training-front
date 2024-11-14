@@ -20,8 +20,6 @@ import { LoaderComponent } from '../../core/components/loader/loader.component';
 })
 export class LandingPageComponent implements OnInit{
 
-  items = [0,1,2,3]
-
   constructor(private readonly store:Store){}
 
   get recordList():Observable<PaginationRecordResponse>{

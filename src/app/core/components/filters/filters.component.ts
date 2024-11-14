@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { changeFilters } from '../../../state/actions/data.actions';
 import { selectFilters } from '../../../state/selectors/data.selector';
@@ -24,26 +24,20 @@ export class FiltersComponent implements OnInit{
   options = FILTER_TYPE_IN_OPTION;
 
   constructor(private readonly store:Store){}
-  ngOnInit(): void {
 
-    this.store.select(selectFilters)
-    .pipe(
-      map(filters => {
-        this.filters.addControl('pending', new FormControl(filters.pending));
-      })
-    )
-    .subscribe()
+  ngOnInit(): void {
+      this.store.select(selectFilters)
+      .pipe(
+        map(filters => this.filters.addControl('pending', new FormControl(filters.pending)))
+      ).subscribe()
   }
 
-  search(){
+  changeToggle(){
     const filters = {...this.filters.value};
-
     this.store.dispatch(changeFilters({filters}));
   }
-
 
   showSearchModal(){
     this.store.dispatch(showModal({ modalType:'search-record'}));
   }
-
 }

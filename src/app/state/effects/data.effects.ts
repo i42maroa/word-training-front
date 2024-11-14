@@ -1,7 +1,7 @@
 import { inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { changeFilters, changePaginationPage, loadRecordListData } from "../actions/data.actions";
-import { getRecordsList, loadRecordsListSuccessfully } from "../actions/context.actions";
+import { addRecordListPaginatedData, changeFilters, changePaginationPage, loadRecordListData } from "../actions/data.actions";
+import { getRecordsList, getRecordsListPaginated, loadRecordListPaginatedSuccessfully, loadRecordsListSuccessfully } from "../actions/context.actions";
 import { map } from "rxjs";
 
 export const loadRecordSuccessfull = createEffect(
@@ -9,6 +9,16 @@ export const loadRecordSuccessfull = createEffect(
     return actions$.pipe(
       ofType(loadRecordListData),
       map(() => loadRecordsListSuccessfully())
+    );
+  },
+  { functional: true }
+);
+
+export const tryAddRecordListPaginatedData = createEffect(
+  (actions$ = inject(Actions)) => {
+    return actions$.pipe(
+      ofType(addRecordListPaginatedData),
+      map(() => loadRecordListPaginatedSuccessfully())
     );
   },
   { functional: true }
@@ -29,8 +39,10 @@ export const changePagination = createEffect(
   (actions$ = inject(Actions)) => {
     return actions$.pipe(
       ofType(changePaginationPage),
-      map(() => getRecordsList())
+      map(() => getRecordsListPaginated())
     );
   },
   { functional: true }
 );
+
+

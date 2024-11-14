@@ -1,0 +1,40 @@
+.container{
+  display: inline-flex;
+  margin: 20px auto;
+  justify-content: center;
+  width: 100%;
+  border-top: 1px solid var(--shadow);
+  padding-top: 15px;
+}
+
+.showMoreButton{
+
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+  margin: auto 12px;
+
+  color: var(--primary);
+}
+
+.showMoreButton::after{
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 90%;
+  right: -5px;
+  background-color: var(--shadow);
+}
+
+
+
+.text{
+  margin: auto 0;
+
+  color: var(--shadow);
+}
+.showMoreButton, .text{
+  display: inline-flex;
+  font-size: 16px;
+}

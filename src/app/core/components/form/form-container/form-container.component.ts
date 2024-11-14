@@ -81,7 +81,7 @@ export class FormContainerComponent{
           break;
         }
         case 'search-record':{
-          const filters = {...this.formGroup.value};
+          const filters = {...form};
 
           this.store.dispatch(changeFilters({filters}));
           break;

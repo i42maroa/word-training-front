@@ -18,7 +18,7 @@ import { CheckSVGComponent } from '../../../../svg/check-svg/check-svg.component
   styleUrl: './search-record.component.css'
 })
 export class SearchRecordComponent implements OnInit {
-  filters: FormGroup = new FormGroup({});
+  formGroup: FormGroup = new FormGroup({});
   options = FILTER_TYPE_IN_OPTION;
 
   constructor(private readonly store:Store){}
@@ -27,8 +27,8 @@ export class SearchRecordComponent implements OnInit {
     this.store.select(selectFilters)
     .pipe(
       map(filters => {
-        this.filters.addControl('text', new FormControl(filters.text));
-        this.filters.addControl('typeIn', new FormArray(this.addTypeIn(filters.typeIn)));
+        this.formGroup.addControl('text', new FormControl(filters.text));
+        this.formGroup.addControl('typeIn', new FormArray(this.addTypeIn(filters.typeIn)));
       })
     )
     .subscribe()
@@ -39,21 +39,19 @@ export class SearchRecordComponent implements OnInit {
   }
 
   resetFilters(){
-      this.filters.patchValue({
+      this.formGroup.patchValue({
         text:"",
         typeIn:[true, true, true]
       })
-      // const filters = {...this.filters.value};
-      // this.store.dispatch(changeFilters({filters}));
   }
 
   selectAll(){
     if(this.allSelected){
-      this.filters.patchValue({
+      this.formGroup.patchValue({
         typeIn:[false, false, false]
       })
     }else{
-      this.filters.patchValue({
+      this.formGroup.patchValue({
         typeIn:[true, true, true]
       })
     }
@@ -61,7 +59,7 @@ export class SearchRecordComponent implements OnInit {
 
 
   types(): FormArray {
-    return this.filters.get('typeIn') as FormArray;
+    return this.formGroup.get('typeIn') as FormArray;
   }
 
   get allSelected():boolean{

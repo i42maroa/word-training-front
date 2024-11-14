@@ -12,6 +12,8 @@ export const closeMenu = createAction('[Context] close menu');
 
 export const getRecordsList =  createAction('[Context] try load record List');
 export const loadRecordsListSuccessfully =  createAction('[Context] record list loaded successfully');
+export const getRecordsListPaginated =  createAction('[Context] try load record List pagination');
+export const loadRecordListPaginatedSuccessfully =  createAction('[Context] record list paginated added successfully');
 
 export const getRecordDetail =  createAction('[Context] try load record detail', props<{ recordId:string}>());
 export const getRecordDetailSuccessfull =  createAction('[Context] record loaded successfull');

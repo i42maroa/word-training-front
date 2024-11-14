@@ -1,8 +1,8 @@
-<app-form-container [formGroup]="filters">
+<app-form-container [formGroup]="formGroup">
   <app-form-row>
     <div class="searchInput" >
       <app-search-svg class="svg"/>
-      <input type="text">
+      <input type="text" formControlName="text">
     </div>
   </app-form-row>
 

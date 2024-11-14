@@ -30,6 +30,10 @@
 }
 
 
+.recordListContainer{
+  min-height: 400px;
+}
+
 .wordTag{
   background-color: red;
 }

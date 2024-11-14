@@ -2,13 +2,10 @@
 @if(pageInfo | async; as pageInfo){
   <div class="container">
 
-    @if(pageInfo.hasPrevious){
-      <button (click)="prevPage()">-</button>
+    @if(pageInfo.hasNext){
+      <button class="showMoreButton" (click)="nextPage()">Ver más</button>
     }
 
-    @if(pageInfo.hasNext){
-      <button (click)="nextPage()">+</button>
-    }
-    {{page$ | async}}
+    <span class="text">{{totalCount | async}} registros</span>
   </div>
 }

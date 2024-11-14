@@ -4,6 +4,8 @@ import {  RecordInterface } from "../../data/record.interface";
 import { FiltersStoraged } from "../../data/filters";
 
 export const loadRecordListData =  createAction('[Data] load record data.', props<{ recordList:PaginationRecordResponse}>());
+export const addRecordListPaginatedData =  createAction('[Data] addRecordListPaginated.', props<{ recordList:PaginationRecordResponse}>());
+
 
 export const changeFilters =  createAction('[Data] change filters.', props<{ filters:FiltersStoraged}>());
 

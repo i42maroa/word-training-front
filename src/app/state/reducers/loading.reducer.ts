@@ -17,6 +17,12 @@ export const loadingReducer = createReducer(
   on(actionsContext.loadRecordsListSuccessfully, (state,) => {
     return {...state, isLoadingRecords:false}
   }),
+  on(actionsContext.getRecordsListPaginated, (state,) => {
+    return {...state, isLoading:true}
+  }),
+  on(actionsContext.loadRecordListPaginatedSuccessfully, (state,) => {
+    return {...state, isLoading:false}
+  }),
   on(actionsContext.getRecordDetail, (state,) => {
     return {...state, isLoading:true}
   }),
