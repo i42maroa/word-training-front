@@ -1,6 +1,11 @@
 
 <form class="cardContainer" [formGroup]="filters">
 
+  @if(showResetFilters() | async){
+    <button class="resetFilterButton" (click)="resetFilters()"> Reset filtros</button>
+  }
+
+
   <app-form-toggle class="toggle" formControlName="pending" [name]="'pending'" [labelTextTrue]="'Pendientes'" [labelTextFalse]="'Revisados'"
   (change)="changeToggle()"/>
 

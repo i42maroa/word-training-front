@@ -1,6 +1,6 @@
 
 .record{
-  width: 100%;
+  width: 95%;
   display: grid;
   grid-template-columns:1fr 1fr 1fr;
   border: 2px solid var(--grey);
@@ -11,11 +11,12 @@
   background-color: transparent;
   padding: 5px;
   position: relative;
+  margin: auto;
 }
 .wordTag::after, .phrasalTag::after, .expressionTag::after{
   content: '';
   height: 100%;
-  width: 5px;
+  width: 8px;
   position: absolute;
   z-index: 100;
 }
@@ -32,10 +33,10 @@
 }
 
 .recordValue{
-  text-align: center;
+  text-align: left;
   margin: auto;
   font-weight: 800;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .definitions{
