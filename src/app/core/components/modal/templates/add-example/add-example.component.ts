@@ -1,18 +1,23 @@
 import { Component } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FormTemplateExamplesComponent } from '../../../form/templates/examples/examples.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormContainerComponent } from '../../../form/form-container/form-container.component';
+import { FormService } from '../../../../services/form/form.service';
+import { FormFieldComponent } from '../../../form/form-field/form-field.component';
 
 @Component({
   selector: 'app-add-example-modal',
   standalone: true,
-  imports: [FormContainerComponent, ReactiveFormsModule, FormTemplateExamplesComponent],
+  imports: [FormContainerComponent, ReactiveFormsModule, FormFieldComponent, ReactiveFormsModule, FormContainerComponent],
   templateUrl: './add-example.component.html',
   styleUrl: './add-example.component.css'
 })
 export class AddExampleComponent {
 
-  formGroup:FormGroup = new FormGroup({
-    exampleGroup:new FormGroup({})
-  })
+  constructor(private readonly formService:FormService) {
+    this.formService.initializateExampleForm();
+  }
+
+  get fs():FormService{
+    return this.formService;
+  }
 }

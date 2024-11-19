@@ -1,120 +1,46 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormTemplateDefinitionComponent } from '../../../form/templates/definition/definition.component';
-import { FormTemplateRecordComponent } from '../../../form/templates/record/record.component';
 import { FormButtonSecundaryComponent } from '../../../buttons/form-button-secundary/form-button-secundary.component';
-import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormContainerComponent } from '../../../form/form-container/form-container.component';
 import { Store } from '@ngrx/store';
-import { map,Subscription } from 'rxjs';
-import { DefinitionInterface, ExampleInterface, RecordInterface } from '../../../../../data/record.interface';
+import { Subscription } from 'rxjs';
 import { DeleteSvgComponent } from '../../../../svg/delete-svg/delete-svg.component';
 import { FormButtonComponent } from '../../../buttons/form-button/form-button.component';
 import { selectRecordDetail } from '../../../../../state/selectors/data.selector';
+import { FormService } from '../../../../services/form/form.service';
+import { FormRowComponent } from '../../../form/form-row/form-row.component';
+import { FormSelectFieldComponent } from '../../../form/form-select-field/form-select-field.component';
+import { FormFieldComponent } from '../../../form/form-field/form-field.component';
 
 @Component({
   selector: 'app-modify-record-modal',
   standalone: true,
-  imports: [FormContainerComponent, ReactiveFormsModule,FormButtonSecundaryComponent, FormTemplateRecordComponent,FormTemplateDefinitionComponent, FormButtonComponent, DeleteSvgComponent],
+  imports: [FormContainerComponent, ReactiveFormsModule,FormButtonSecundaryComponent, FormButtonComponent, DeleteSvgComponent, FormFieldComponent, FormSelectFieldComponent, FormRowComponent],
   templateUrl: './modify-record.component.html',
   styleUrl: './modify-record.component.css'
 })
 export class ModifyRecordComponent implements OnInit, OnDestroy{
 
-  formGroup:FormGroup = new FormGroup({
-    recordId: new FormControl(),
-    value: new FormControl(),
-    type: new FormControl('WORD'),
-    definitions: new FormArray([])
-  });
-
   subscriber!:Subscription;
 
   constructor(
-    private readonly store:Store){}
+    private readonly store:Store,
+    private readonly formService:FormService){ }
 
   ngOnInit(): void {
     this.subscriber = this.store.select(selectRecordDetail)
-      .pipe(
-        map((data) => {
-          const record = data as RecordInterface;
-          this.formGroup.patchValue({
-            value:record.value,
-            type:record.type,
-            recordId:record.recordId
-          })
-
-          if(record.definitions){
-            record.definitions.forEach((definition:DefinitionInterface) => {
-              const def = this.newDefinition();
-              def.patchValue({
-                  definitionId:definition.definitionId,
-                  translation:definition.translation,
-                  defType:definition.type
-              })
-
-              if(definition.examples){
-                definition.examples.forEach((example:ExampleInterface) => {
-                  const examp = this.newExampleGroup();
-
-                  examp.patchValue({
-                    sentence:example.sentence,
-                    translation:example.translation,
-                    exampleId:example.exampleId
-                  })
-                  const defGroup = def.get('examples') as FormArray;
-                  defGroup.push(examp);
-                })
-              }
-
-              this.definitions().push(def);
-            })
-          }
-        }
-      )
-      )
-      .subscribe()
-  }
-
-  definitions(): FormArray {
-    return this.formGroup.get('definitions') as FormArray;
-  }
-
-  definitionGroup(index:number){
-    return this.definitions().at(index) as FormGroup
-  }
-
-
-  addDefinition(){
-    this.definitions().push(this.newDefinition())
-  }
-
-  removeDefinition(defIndex: number) {
-    this.definitions().removeAt(defIndex);
-  }
-
-  newDefinition(){
-    return  new FormGroup({
-        definitionId:new FormControl(),
-        translation:new FormControl(),
-        defType:new FormControl('NOUN'),
-        examples:new FormArray([])
-      })
-  }
-
-  newExampleGroup(){
-    return new FormGroup({
-      exampleId:new FormControl(),
-      sentence:new FormControl(),
-      translation:new FormControl()
-    })
-  }
-
-  showRemoveDefinition(){
-    return this.definitions().length > 1
+      .subscribe(record => this.formService.initializateRecordForm(record));
   }
 
   ngOnDestroy(): void {
     this.subscriber.unsubscribe();
   }
 
+  get fs():FormService{
+    return this.formService;
+  }
+
+  exampleLabel(num:number):string{
+    return `Ejemplo ${num + 1}`;
+  }
 }

@@ -1,3 +1,4 @@
-<app-form-container [formGroup]="formGroup">
-  <app-form-template-examples [formGroup]="formGroup"/>
+<app-form-container [formGroup]="fs.formGroup">
+  <app-form-field formControlName="sentence" [name]="'sentence'" [labelText]="'Ejemplo'" [icon]="'english'"/>
+  <app-form-field formControlName="translation" [name]="'translation'" [labelText]="'Ejemplo'" [icon]="'spain'"/>
 </app-form-container>

@@ -56,7 +56,6 @@ export class FormContainerComponent{
         }
         case 'modify-record': {
           const recordRequest = this.cleanModifyRecord(form);
-          console.log(recordRequest)
           if(recordRequest){
             this.store.dispatch(modifyRecord({recordId:modalState.data!.recordId, recordRequest}))
           }

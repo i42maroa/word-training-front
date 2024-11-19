@@ -1,65 +1,33 @@
 import { Component } from '@angular/core';
-import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormButtonSecundaryComponent } from '../../../buttons/form-button-secundary/form-button-secundary.component';
-import { FormTemplateRecordComponent } from '../../../form/templates/record/record.component';
-import { FormTemplateDefinitionComponent } from '../../../form/templates/definition/definition.component';
 import { FormContainerComponent } from '../../../form/form-container/form-container.component';
 import { FormButtonComponent } from '../../../buttons/form-button/form-button.component';
 import { DeleteSvgComponent } from '../../../../svg/delete-svg/delete-svg.component';
+import { FormService } from '../../../../services/form/form.service';
+import { FormFieldComponent } from '../../../form/form-field/form-field.component';
+import { FormSelectFieldComponent } from '../../../form/form-select-field/form-select-field.component';
+import { FormRowComponent } from '../../../form/form-row/form-row.component';
 
 
 @Component({
   selector: 'app-add-modal',
   standalone: true,
-  imports: [FormContainerComponent, ReactiveFormsModule, FormButtonComponent, FormButtonSecundaryComponent, FormTemplateRecordComponent,FormTemplateDefinitionComponent, DeleteSvgComponent],
+  imports: [FormContainerComponent, ReactiveFormsModule, FormButtonComponent, FormButtonSecundaryComponent, DeleteSvgComponent, FormFieldComponent, FormSelectFieldComponent, FormRowComponent],
   templateUrl: './add.component.html',
   styleUrl: './add.component.css'
 })
 export class AddModalComponent{
 
-  formGroup:FormGroup =new FormGroup({
-    value: new FormControl(),
-    type: new FormControl('WORD'),
-    definitions: new FormArray([this.newDefinition()])
-  });
-
-
-  definitions(): FormArray {
-    return this.formGroup.get('definitions') as FormArray;
+  constructor(private readonly formService:FormService) {
+    this.formService.initializateRecordForm(undefined);
   }
 
-  definitionGroup(index:number){
-    return this.definitions().at(index) as FormGroup
+  get fs():FormService{
+    return this.formService;
   }
 
-
-  addDefinition(){
-    this.definitions().push(this.newDefinition())
+  exampleLabel(num:number):string{
+    return `Ejemplo ${num + 1}`;
   }
-
-  removeDefinition(defIndex: number) {
-    this.definitions().removeAt(defIndex);
-  }
-
-  newDefinition(){
-    return  new FormGroup({
-        translation:new FormControl(),
-        type:new FormControl(""),
-        info:new FormControl(),
-        examples:new FormArray([
-          new FormGroup({
-            sentence:new FormControl(),
-            translation:new FormControl(),
-            info: new FormControl()
-          })
-        ])
-      })
-
-  }
-
-  showRemoveDefinition(){
-    return this.definitions().length > 1
-  }
-
 }

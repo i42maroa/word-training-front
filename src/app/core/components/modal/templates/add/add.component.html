@@ -1,22 +1,42 @@
-<app-form-container [formGroup]="formGroup">
+<app-form-container [formGroup]="fs.formGroup">
 
-  <app-form-template-record [formGroup]="formGroup"/>
+  <app-form-row>
+    <app-form-field formControlName="value" [name]="'value'" [labelText]="'Registro'" [icon]="'english'"/>
+    <app-form-select-field formControlName="type" [name]="'type'" [options]="fs.optionRecordType"  [labelText]="'Tipo'"/>
+  </app-form-row>
 
   <div class="definitionsContainer" formArrayName="definitions">
-    @for(def of definitions().controls; track $index; let definitionIndex = $index){
-      <div class="row">
-        <span class="definitionTitle">Definición {{definitionIndex + 1}}:</span>
-        @if(definitions().controls.length > 1){
-          <app-form-button (click)="removeDefinition(definitionIndex)">
-            <app-delete-svg/>
-          </app-form-button>
+    <div class="row">
+      <div>
+        <span>Definiciones</span>
+        @for(def of fs.definitions().controls; track $index; let definitionIndex = $index){
+          <app-form-button-secundary (click)="fs.changeDefinitionShow(definitionIndex)">{{definitionIndex + 1}}</app-form-button-secundary>
         }
       </div>
-      <app-form-templates-definition [formGroup]="definitionGroup(definitionIndex)"/>
-    }
-
-    <div class="rowAdding">
-      <app-form-button-secundary (click)="addDefinition()">+ Definición</app-form-button-secundary>
+      <app-form-button-secundary (click)="fs.addDefinition()">+ Definición</app-form-button-secundary>
     </div>
+
+    <div class="container" [formGroup]="fs.definitionGroup(fs.definitionSelected)">
+      <app-form-row>
+        <app-form-field formControlName="translation" [name]="'translation'" [labelText]="'Traducción'" [icon]="'spain'"/>
+        <app-form-select-field formControlName="type" [name]="'type'" [options]="fs.optionDefinitionType"  [labelText]="'Tipo'"/>
+      </app-form-row>
+
+      <div class="examplesContainer" formArrayName="examples" >
+        @for(ex of fs.examples().controls; track $index; let exampleIndex = $index){
+          <div class="exampleContainer" [formGroupName]="exampleIndex" >
+
+            <div class="exampleContainer">
+              <app-form-field formControlName="sentence" [name]="'sentence'" [labelText]="exampleLabel(exampleIndex)" [icon]="'english'"/>
+              <app-form-field formControlName="translation" [name]="'translation'" [labelText]="exampleLabel(exampleIndex)" [icon]="'spain'"/>
+            </div>
+          </div>
+        }
+    </div>
+      <div class="rowAdding">
+        <app-form-button-secundary  (click)="fs.addExample()"> + Ejemplo</app-form-button-secundary>
+      </div>
+    </div>
+
   </div>
 </app-form-container>
