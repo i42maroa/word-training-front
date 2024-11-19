@@ -1,0 +1,56 @@
+
+.record{
+  width: 100%;
+  display: grid;
+  grid-template-columns:1fr 1fr 1fr;
+  border: 2px solid var(--grey);
+  cursor: pointer;
+  border-top-left-radius:10px;
+  border-bottom-left-radius:10px;
+  overflow: hidden;
+  background-color: transparent;
+  padding: 5px;
+  position: relative;
+}
+.wordTag::after, .phrasalTag::after, .expressionTag::after{
+  content: '';
+  height: 100%;
+  width: 5px;
+  position: absolute;
+  z-index: 100;
+}
+
+.wordTag::after{
+  background-color: red;
+}
+
+.phrasalTag::after{
+  background-color: blue;
+}
+ .expressionTag::after{
+  background-color: green;
+}
+
+.recordValue{
+  text-align: center;
+  margin: auto;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.definitions{
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.definitionText{
+  font-size: 12px;
+}
+
+.recordDate{
+  font-size: 12px;
+  font-style: italic;
+  text-align: center;
+  margin: auto;
+}
