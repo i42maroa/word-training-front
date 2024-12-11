@@ -13,15 +13,16 @@ export class FormService {
   private optionSelect: {label:string; value:RecordType}[] = RECORD_TYPE_OPTIONS;
   private optionDefinitionSelect: {label:string; value:DefinitionType}[] = DEFINITION_TYPE_OPTIONS;
 
-
   //TODO: clean
   initializateRecordForm(record:RecordInterface|undefined){
+    console.log(this.form, record)
     if(record){
       this.form = this.createNewRecordFormGroup(record);
     }
     else{
       this.form = this.createEmptyRecordFormGroup();
     }
+    console.log(this.form, "post set")
   }
 
   initializateDefinitionForm(definition: DefinitionInterface | undefined){
@@ -107,6 +108,7 @@ export class FormService {
   }
 
   changeDefinitionShow(definitionIndex:number){
+    console.log(this.selectedDefinition, definitionIndex)
     this.selectedDefinition = definitionIndex;
   }
 
@@ -120,8 +122,8 @@ export class FormService {
 
 
   //EXAMPLES FORM OPERATIONS
-  examples(): FormArray {
-    return this.definitionGroup(this.selectedDefinition).get('examples') as FormArray;
+  examples(index:number): FormArray {
+    return this.definitionGroup(index).get('examples') as FormArray;
   }
 
   examplesInSingleDefinition(): FormArray {
@@ -129,11 +131,11 @@ export class FormService {
   }
 
   exampleGroup(index:number){
-    return this.examples().at(index) as FormGroup
+    return this.examples(index).at(index) as FormGroup
   }
 
-  addExample(){
-    this.examples().push(this.createEmptyExampleFormGroup())
+  addExample(index:number){
+    this.examples(index).push(this.createEmptyExampleFormGroup())
   }
 
 
@@ -151,5 +153,15 @@ export class FormService {
 
   get optionDefinitionType(){
     return this.optionDefinitionSelect;
+  }
+
+  resetForm(){
+    this.form = new FormGroup({});
+    this.selectedDefinition = 0;
+    console.log("reset")
+  }
+
+  showDefinition(currentIndex:number){
+    return currentIndex === this.selectedDefinition;
   }
 }

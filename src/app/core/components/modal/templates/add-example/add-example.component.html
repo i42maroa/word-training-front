@@ -1,4 +1,5 @@
-<app-form-container [formGroup]="fs.formGroup">
+<form [formGroup]="fs.formGroup" (ngSubmit)="sendForm()">
   <app-form-field formControlName="sentence" [name]="'sentence'" [labelText]="'Ejemplo'" [icon]="'english'"/>
   <app-form-field formControlName="translation" [name]="'translation'" [labelText]="'Ejemplo'" [icon]="'spain'"/>
-</app-form-container>
+  <app-form-button-container (sendButton)="sendForm()"/>
+</form>

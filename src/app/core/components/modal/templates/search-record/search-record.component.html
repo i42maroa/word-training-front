@@ -1,4 +1,4 @@
-<app-form-container [formGroup]="formGroup">
+<form [formGroup]="formGroup" (ngSubmit)="sendForm()">
   <app-form-row>
     <div class="searchInput" >
       <app-search-svg class="svg"/>
@@ -30,7 +30,8 @@
       }
     </div>
   </div>
-</app-form-container>
+  <app-form-button-container  (sendButton)="sendForm()"/>
+</form>
 
 
 

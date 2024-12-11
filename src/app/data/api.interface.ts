@@ -1,4 +1,4 @@
-export interface RequestNewRecord{
+export interface RecordNewRequest{
     value:string;
     type:string;
     definitions:DefinitionNewRequest[];

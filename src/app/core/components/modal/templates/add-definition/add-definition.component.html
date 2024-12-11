@@ -1,4 +1,4 @@
-<app-form-container [formGroup]="fs.formGroup">
+<form [formGroup]="fs.formGroup" (ngSubmit)="sendForm()">
   <app-form-row>
     <app-form-field formControlName="translation" [name]="'translation'" [labelText]="'Traducción'" [icon]="'spain'"/>
     <app-form-select-field formControlName="type" [name]="'type'" [options]="fs.optionDefinitionType"  [labelText]="'Tipo'"/>
@@ -19,6 +19,7 @@
       }
   </div>
   <div class="rowAdding">
-    <app-form-button-secundary  (click)="fs.addExample()"> + Ejemplo</app-form-button-secundary>
+    <app-form-button-secundary  (click)="fs.addExample(0)"> + Ejemplo</app-form-button-secundary>
   </div>
-<app-form-row>
+  <app-form-button-container  (sendButton)="sendForm()"></app-form-button-container>
+<form>

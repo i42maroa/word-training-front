@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { ModalDataState, ModalType } from "../../data/modal.interface";
-import { DefinitionNewRequest, ExampleNewRequest, RequestNewRecord } from "../../data/api.interface";
+import { DefinitionNewRequest, ExampleNewRequest, RecordNewRequest } from "../../data/api.interface";
 
 
 export const showModal = createAction('[Context] show modal', props<{ modalType:ModalType, modalData?:ModalDataState }>());
@@ -19,10 +19,10 @@ export const getRecordDetail =  createAction('[Context] try load record detail',
 export const getRecordDetailSuccessfull =  createAction('[Context] record loaded successfull');
 
 
-export const saveNewRecord =  createAction('[Context] try create new record', props<{ recordRequest:RequestNewRecord}>());
+export const saveNewRecord =  createAction('[Context] try create new record', props<{ recordRequest:RecordNewRequest}>());
 export const saveNewRecordSuccessfull =  createAction('[Context] new record created successfully');
 
-export const modifyRecord =  createAction('[Context] try modify record ', props<{recordId:string, recordRequest:RequestNewRecord}>());
+export const modifyRecord =  createAction('[Context] try modify record ', props<{recordId:string, recordRequest:RecordNewRequest}>());
 export const modifyRecordSuccessfull =  createAction('[Context] modify record successfully');
 
 export const saveNewDefinition =  createAction('[Context] try add new definition', props<{ recordId:string, definitionRequest:DefinitionNewRequest}>());

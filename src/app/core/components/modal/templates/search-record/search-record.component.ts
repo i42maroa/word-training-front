@@ -5,15 +5,17 @@ import { FILTER_TYPE_IN_OPTION } from '../../../../../data/filters';
 import { Store } from '@ngrx/store';
 import { selectFilters } from '../../../../../state/selectors/data.selector';
 import { map } from 'rxjs';
-import { FormContainerComponent } from '../../../form/form-container/form-container.component';
 import { FormRowComponent } from '../../../form/form-row/form-row.component';
 import { SearchSVGComponent } from '../../../../svg/seach-svg/seach-svg.component';
 import { CheckSVGComponent } from '../../../../svg/check-svg/check-svg.component';
+import { FormButtonContainerComponent } from '../../../form/form-button-container/form-button-container.component';
+import { changeFilters } from '../../../../../state/actions/data.actions';
+import { closeModal } from '../../../../../state/actions/context.actions';
 
 @Component({
   selector: 'app-search-record',
   standalone: true,
-  imports: [ReactiveFormsModule, FormToggleComponent, FormContainerComponent, FormRowComponent, SearchSVGComponent, CheckSVGComponent],
+  imports: [ReactiveFormsModule, FormToggleComponent, FormButtonContainerComponent, FormRowComponent, SearchSVGComponent, CheckSVGComponent],
   templateUrl: './search-record.component.html',
   styleUrl: './search-record.component.css'
 })
@@ -64,5 +66,12 @@ export class SearchRecordComponent implements OnInit {
 
   get allSelected():boolean{
     return this.types().value.every((v:boolean) => v === true)
+  }
+
+  sendForm(){
+    const filters = {...this.formGroup.value};
+
+    this.store.dispatch(changeFilters({filters}));
+    this.store.dispatch(closeModal())
   }
 }

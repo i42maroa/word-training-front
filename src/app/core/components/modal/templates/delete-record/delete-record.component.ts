@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FormContainerComponent } from '../../../form/form-container/form-container.component';
 import { CommonModule } from '@angular/common';
-import { map, Observable } from 'rxjs';
-import { selectModal } from '../../../../../state/selectors/context.selector';
-import { FormGroup } from '@angular/forms';
+import { first, Observable } from 'rxjs';
+import { selectModalDataRecordId } from '../../../../../state/selectors/context.selector';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormButtonContainerComponent } from '../../../form/form-button-container/form-button-container.component';
+import { removeRecord } from '../../../../../state/actions/context.actions';
 
 @Component({
   selector: 'app-delete-record-modal',
   standalone: true,
-  imports: [FormContainerComponent, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, FormButtonContainerComponent],
   templateUrl: './delete-record.component.html',
   styleUrl: './delete-record.component.css'
 })
@@ -19,9 +20,14 @@ export class DeleteRecordComponent {
   constructor(private readonly store:Store) {}
 
   recordId():Observable<string | undefined>{
-    return this.store.select(selectModal)
-    .pipe(
-      map((value) => value.data!.recordId)
-    )
+    return this.store.select(selectModalDataRecordId);
+  }
+
+  sendForm(){
+    const subscription = this.store.select(selectModalDataRecordId)
+          .pipe(first())
+          .subscribe(recordId => this.store.dispatch(removeRecord({recordId})));
+
+    subscription.unsubscribe();
   }
 }

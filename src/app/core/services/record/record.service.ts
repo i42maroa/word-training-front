@@ -4,7 +4,7 @@ import { RecordInterface } from '../../../data/record.interface';
 import { NotificationService } from '../notification/notification.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { PaginationRecordResponse } from '../../../data/pagination.interface';
-import { DefinitionNewRequest, ExampleNewRequest, RequestNewRecord } from '../../../data/api.interface';
+import { DefinitionNewRequest, ExampleNewRequest, RecordNewRequest } from '../../../data/api.interface';
 import { Store } from '@ngrx/store';
 import { selectData } from '../../../state/selectors/data.selector';
 import { DataInterfaceState} from '../../../data/data-state.interface';
@@ -32,12 +32,12 @@ constructor(
  }
 
 
- addNewRecord(record:RequestNewRecord ): Observable<RecordInterface>{
+ addNewRecord(record:RecordNewRequest ): Observable<RecordInterface>{
   return this.http.post<RecordInterface>("http://localhost:8080/record", record)
   .pipe(tap(m => console.log(m)))
  }
 
- modificateRecord(recordId: string, modifiedRecord:RequestNewRecord): Observable<RecordInterface>{
+ modificateRecord(recordId: string, modifiedRecord:RecordNewRequest): Observable<RecordInterface>{
   return this.http.put<RecordInterface>("http://localhost:8080/record/" + recordId, modifiedRecord)
   .pipe(tap(m => console.log(m)))
  }

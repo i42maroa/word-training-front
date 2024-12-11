@@ -33,6 +33,11 @@ export const selectModalData = createSelector(
   (state:InterfaceState) => state.modal.data
 )
 
+export const selectModalDataRecordId = createSelector(
+  selectWordsFeature,
+  (state:InterfaceState) => state.modal.data!.recordId
+)
+
 export const selectMenu = createSelector(
   selectWordsFeature,
   (state:InterfaceState) => state.menu

@@ -1,0 +1,9 @@
+.buttonRow{
+  display: flex;
+  width: max-content;
+  margin: 10px auto;
+}
+
+.buttonRow *{
+  margin: 0 5px;
+}
