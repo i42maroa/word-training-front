@@ -7,13 +7,12 @@ border-radius: 3px;
 }
 
 .containerHeader{
-  display: flex;
-  justify-content: space-between;
   border: none;
-  background-color: var(--white);
+  background-color: red;
   text-align: left;
   cursor: pointer;
   padding: 0;
+
 }
 
 
@@ -26,14 +25,15 @@ border-radius: 3px;
 }
 
 .sentence{
-  font-weight: 800;
+  font-size: 16px;
 }
 
-.sentence,
-.sentenceTranslated,
-.info{
-  padding: 0 10px;
+.sentenceTranslated{
+  font-size: 16px;
+  font-style: italic;
 }
+
+
 
 .sentenceTranslated{
   position: relative;
@@ -61,3 +61,41 @@ border-radius: 3px;
   font-style: italic;
   position: relative;
 }
+
+.translateHidden{
+  position: relative;
+}
+
+.translateHidden p{
+  text-align: center;
+}
+
+.modal{
+  position: absolute;
+  width: 100%;
+  height: 90%;
+  background-color: #efefef;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+
+  filter: blur(10px);
+}
+
+.buttonTranslate{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+
+  background: transparent;
+  border: none;
+}
+
+.buttonTranslate:hover{
+  text-decoration: underline;
+}
+

@@ -20,7 +20,5 @@ export class ExampleComponent {
     this.showAdditionalInfo = !this.showAdditionalInfo;
   }
 
-  get isMoreInfo(){
-    return this.example && (this.example.info || this.example.translation)
-  }
+
 }

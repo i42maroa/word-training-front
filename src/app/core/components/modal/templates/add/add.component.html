@@ -1,54 +1,47 @@
-<form class="form" [formGroup]="form">
+<form [formGroup]="fs.formGroup" (ngSubmit)="sendForm()">
 
   <app-form-row>
     <app-form-field formControlName="value" [name]="'value'" [labelText]="'Registro'" [icon]="'english'"/>
-    <app-form-select-field formControlName="type" [name]="'type'" [options]="optionSelect"  [labelText]="'Tipo'"/> 
+    <app-form-select-field formControlName="type" [name]="'type'" [options]="fs.optionRecordType"  [labelText]="'Tipo'"/>
   </app-form-row>
 
   <div class="definitionsContainer" formArrayName="definitions">
-    @for(def of definitions().controls; track $index; let definitionIndex = $index){
-
-      <div class="exampleRow">
-        <span class="definitionTitle">Definición {{definitionIndex + 1}}:</span>
-
-        <div class="deleteButtonRow">
-            <app-form-button-secundary  (click)="addExample(definitionIndex)"> + Ejemplo</app-form-button-secundary>
-          @if(definitions().length > 1){
-            <app-form-button-secundary  (click)="removeDefinition(definitionIndex)"><app-delete-svg/></app-form-button-secundary>
-          }
-        </div>
-
+    <div class="row">
+      <div>
+        <span>Definiciones</span>
+        @for(def of fs.definitions().controls; track $index; let definitionIndex = $index){
+          <app-form-definition-button [focus]="fs.showDefinition(definitionIndex)" (click)="fs.changeDefinitionShow(definitionIndex)">{{definitionIndex + 1}}</app-form-definition-button>
+        }
       </div>
-      <div class="defContainer" [formGroupName]="definitionIndex" >
-       
-        <app-form-row>
-          <app-form-field formControlName="translation" [name]="'translation'" [labelText]="'Traducción'" [icon]="'spain'"/>
-          <app-form-select-field formControlName="defType" [name]="'defType'" [options]="optionDefinitionSelect"  [labelText]="'Tipo'"/> 
-        </app-form-row>
+      <app-form-button-secundary (click)="fs.addDefinition()">+ Definición</app-form-button-secundary>
+    </div>
 
-        <div class="examplesContainer" formArrayName="examples" >
-          @for(ex of examples(definitionIndex).controls; track $index; let exampleIndex = $index){
-            <div class="exampleContainer" [formGroupName]="exampleIndex" >
+    <div class="container" >
+        @for(def of fs.definitions().controls; track $index; let definitionIndex = $index){
+          @if(fs.showDefinition(definitionIndex)){
+          <div [formGroup]="fs.definitionGroup(definitionIndex)">
+            <app-form-row>
+              <app-form-field formControlName="translation" [name]="'translation'" [labelText]="'Traducción'" [icon]="'spain'"/>
+              <app-form-select-field formControlName="type" [name]="'type'" [options]="fs.optionDefinitionType"  [labelText]="'Tipo'"/>
+            </app-form-row>
+          <div class="examplesContainer" formArrayName="examples" >
+            @for(ex of fs.examples(definitionIndex).controls; track $index; let exampleIndex = $index){
+              <div class="exampleContainer" [formGroupName]="exampleIndex" >
 
-              <div class="exampleRow">
-                <span class="exampleTitle">Ejemplo {{exampleIndex + 1}}:</span>
+                <div class="exampleContainer">
+                  <app-form-field formControlName="sentence" [name]="'sentence'" [labelText]="exampleLabel(exampleIndex)" [icon]="'english'"/>
+                  <app-form-field formControlName="translation" [name]="'translation'" [labelText]="exampleLabel(exampleIndex)" [icon]="'spain'"/>
+                </div>
               </div>
-              <app-form-field formControlName="sentence" [name]="'sentence'" [labelText]="'Ejemplo'" [icon]="'english'"/>
-              <app-form-field formControlName="translation" [name]="'translation'" [labelText]="'Ejemplo'" [icon]="'spain'"/>  
+            }
             </div>
-          }
-        </div>
-      </div>
-    }
-
-    <div class="formRowAdding">
-      <app-form-button-secundary  (click)="addDefinition()">+ Definición</app-form-button-secundary>
+            <div class="rowAdding">
+              <app-form-button-secundary  (click)="fs.addExample(definitionIndex)"> + Ejemplo</app-form-button-secundary>
+            </div>
+          </div>
+        }
+      }
     </div>
   </div>
-
-  <div class="formRow buttonRow">
-    <app-form-button (click)="closeModal()" [cancel]="true" >Cancelar</app-form-button>
-    <app-form-button (click)="saveRecord()">Guardar</app-form-button>
-  </div>
-
+  <app-form-button-container (sendButton)="sendForm()" ></app-form-button-container>
 </form>

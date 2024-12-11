@@ -1,144 +1,48 @@
-import { Component } from '@angular/core';
-import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-
-import { DEFINITION_TYPE_OPTIONS, DefinitionInterface, DefinitionType, ExampleInterface, RECORD_TYPE_OPTIONS, RecordInterface, RecordType } from '../../../../../data/record.interface';
-import { closeModal } from '../../../../../state/actions/context.actions';
-import { Store } from '@ngrx/store';
-import { DeleteSvgComponent } from '../../../../svg/delete-svg/delete-svg.component';
-import { FormInputComponent } from '../../../../../shared/components/form/form-input/form-input.component';
-import { FormButtonComponent } from '../../../buttons/form-button/form-button.component';
+import { Component} from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormButtonSecundaryComponent } from '../../../buttons/form-button-secundary/form-button-secundary.component';
-import { FormRowComponent } from '../../../form/form-row/form-row.component';
+import { DeleteSvgComponent } from '../../../../svg/delete-svg/delete-svg.component';
+import { FormService } from '../../../../services/form/form.service';
 import { FormFieldComponent } from '../../../form/form-field/form-field.component';
 import { FormSelectFieldComponent } from '../../../form/form-select-field/form-select-field.component';
+import { FormRowComponent } from '../../../form/form-row/form-row.component';
+import { FormButtonContainerComponent } from '../../../form/form-button-container/form-button-container.component';
+import { FormCleanerService } from '../../../../services/form/form-cleaner.service';
+import { Store } from '@ngrx/store';
+import { closeModal, saveNewRecord } from '../../../../../state/actions/context.actions';
+import { FormDefinitionButtonComponent } from '../../../buttons/form-definition-button/form-definition-button.component';
 
 
 @Component({
   selector: 'app-add-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, DeleteSvgComponent, FormInputComponent, FormButtonComponent, FormButtonSecundaryComponent, FormSelectFieldComponent, FormRowComponent, FormFieldComponent],
+  imports: [ReactiveFormsModule, FormButtonSecundaryComponent, FormDefinitionButtonComponent, FormButtonSecundaryComponent, DeleteSvgComponent, FormFieldComponent, FormSelectFieldComponent, FormRowComponent, FormButtonContainerComponent],
   templateUrl: './add.component.html',
   styleUrl: './add.component.css'
 })
 export class AddModalComponent {
 
-  form:FormGroup =new FormGroup({
-    value: new FormControl(),
-    type: new FormControl('WORD'),
-    definitions: new FormArray([
-      new FormGroup({
-        translation:new FormControl(),
-        defType:new FormControl('NOUN'),
-        info:new FormControl(),
-        examples:new FormArray([
-          new FormGroup({
-            sentence:new FormControl(),
-            translation:new FormControl(),
-            info: new FormControl()
-          })
-        ])
-      })
-    ])
-});
-
-constructor(private readonly store:Store){
-}
-
-  optionSelect: {label:string; value:RecordType}[] = RECORD_TYPE_OPTIONS;
-  optionDefinitionSelect: {label:string; value:DefinitionType}[] = DEFINITION_TYPE_OPTIONS;
-
-  definitions(): FormArray {
-    return this.form.get('definitions') as FormArray;
+  constructor(private readonly formService:FormService,
+    private readonly formCleanerService:FormCleanerService,
+    private readonly store:Store) {
+      this.formService.initializateRecordForm(undefined);
   }
 
-  examples(defIndex:number): FormArray {
-    return this.definitions().at(defIndex).get('examples') as FormArray;
+
+  get fs():FormService{
+    return this.formService;
   }
 
-  addDefinition(){
-    this.definitions().push(this.newDefinition())
+  exampleLabel(num:number):string{
+    return `Ejemplo ${num + 1}`;
   }
 
-  addExample(defIndex:number){
-    this.examples(defIndex).push(this.newExample())
-  }
+  sendForm(){
+    const recordCleaned = this.formCleanerService.cleanFormRecord(this.fs.formGroup);
 
-  removeDefinition(defIndex: number) {
-    this.definitions().removeAt(defIndex);
-  }
-
-  newDefinition(){
-    return  new FormGroup({
-        translation:new FormControl(),
-        defType:new FormControl('NOUN'),
-        info:new FormControl(),
-        examples:new FormArray([
-          new FormGroup({
-            sentence:new FormControl(),
-            translation:new FormControl(),
-            info: new FormControl()
-          })
-        ])
-      })
-
-  }
-
-  newExample(){
-    return  new FormGroup({
-        sentence:new FormControl(),
-        translation:new FormControl(),
-        info: new FormControl()
-      });
-  }
-
-  showRemoveDefinition(){
-    return this.definitions().length > 1
-  }
-
-  showRemoveExample(defIndex:number){
-    return this.examples(defIndex).length > 1
-  }
-  saveRecord(){
-   const form =  this.form.value;
-    const cleanedForm = this.cleanObject(form)
-    console.log(cleanedForm)
-  }
-
-  closeModal(){
-    this.store.dispatch(closeModal());
-  }
-
-  cleanObject(form:any):RecordInterface{
-    console.log(form)
-
-      const defs = form.definitions.reduce((definitions:DefinitionInterface[], definitionForm:any) => {
-
-        if(definitionForm.translation){
-          const exampleFromRed = definitionForm.examples.reduce((examples:ExampleInterface[], exampleForm:ExampleInterface) => {
-            if(exampleForm.sentence || exampleForm.translation){
-              examples.push(exampleForm)
-            }
-            return examples;
-          }, [])
-
-          const def:DefinitionInterface = {
-            definitionId:"d",
-            translation:definitionForm.translation,
-            type:definitionForm.defType,
-            examples:exampleFromRed
-          }
-          definitions.push(def)
-        }
-        return definitions;
-      }, [])
-
-    return {
-      creationDate: new Date(),
-      definitions: defs,
-      modificationDate: new Date(),
-      type:form.type,
-      value:form.value,
-      _id:""
+    if(recordCleaned){
+      this.store.dispatch(saveNewRecord({recordRequest:recordCleaned}));
+      this.store.dispatch(closeModal());
     }
   }
 }

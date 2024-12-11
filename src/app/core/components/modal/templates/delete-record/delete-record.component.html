@@ -1,0 +1,5 @@
+
+<form [formGroup]="formGroup" (ngSubmit)="sendForm()">
+    <p>Estas seguro de eliminar el registro  {{recordId() | async}}</p>
+    <app-form-button-container  (sendButton)="sendForm()"/>
+</form>

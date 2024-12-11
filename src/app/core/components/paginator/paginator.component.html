@@ -1,0 +1,11 @@
+
+@if(pageInfo | async; as pageInfo){
+  <div class="container">
+
+    @if(pageInfo.hasNext){
+      <button class="showMoreButton" (click)="nextPage()">Ver más</button>
+    }
+
+    <span class="text">{{totalCount | async}} registros</span>
+  </div>
+}

@@ -26,9 +26,9 @@
 }
 
 .container:active,
-.container:hover,
 .container:focus {
-  outline: 0;
+  background-color: var(--secondary-dark);
+  outline: 0.5px solid var(--primary);
 }
 
 .container:hover {

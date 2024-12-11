@@ -1,5 +1,6 @@
 @if (showFloatButton$ | async) {
   @switch (typeFloatButton$ | async) {
     @case ('add') { <button (click)="dispatchNewWordModal()">+</button>}
+    @case ('add-definition') { <button (click)="dispatchNewDefinitionModal()">+</button>}
   }
 }

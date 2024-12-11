@@ -1,0 +1,25 @@
+<form [formGroup]="fs.formGroup" (ngSubmit)="sendForm()">
+  <app-form-row>
+    <app-form-field formControlName="translation" [name]="'translation'" [labelText]="'Traducción'" [icon]="'spain'"/>
+    <app-form-select-field formControlName="type" [name]="'type'" [options]="fs.optionDefinitionType"  [labelText]="'Tipo'"/>
+  </app-form-row>
+
+   <div class="examplesContainer" formArrayName="examples" >
+      @for(ex of fs.examplesInSingleDefinition().controls; track $index; let exampleIndex = $index){
+        <div class="exampleContainer" [formGroupName]="exampleIndex" >
+          <div class="exampleRow">
+            <span class="exampleTitle">Ejemplo {{exampleIndex + 1}}:</span>
+          </div>
+
+          <div class="exampleContainer">
+            <app-form-field formControlName="sentence" [name]="'sentence'" [labelText]="'Ejemplo'" [icon]="'english'"/>
+            <app-form-field formControlName="translation" [name]="'translation'" [labelText]="'Ejemplo'" [icon]="'spain'"/>
+          </div>
+        </div>
+      }
+  </div>
+  <div class="rowAdding">
+    <app-form-button-secundary  (click)="fs.addExample(0)"> + Ejemplo</app-form-button-secundary>
+  </div>
+  <app-form-button-container  (sendButton)="sendForm()"></app-form-button-container>
+<form>

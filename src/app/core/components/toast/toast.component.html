@@ -1,0 +1,9 @@
+
+@if(toastData | async; as toast){
+  @if(toast.show){
+      <div class="notification"  [ngClass]="{'success': toast.type ==='success',
+        'error': toast.type ==='error', 'warn': toast.type ==='warn'}">
+          <span>{{ toast.message }}</span>
+      </div>
+  }
+}

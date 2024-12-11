@@ -1,0 +1,16 @@
+.container{
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--primary);
+  padding: 10px;
+}
+
+.logo{
+  color: var(--white);
+  text-decoration: none;
+  font-size: 28px;
+}
+
+.logo:hover{
+  color: var(--grey);
+}

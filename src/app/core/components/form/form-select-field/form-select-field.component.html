@@ -1,8 +1,9 @@
 <div class="formGroup">
-    <select class="formField" [ngModel]="input" [name]="name" (ngModelChange)="onChange($event)">
+    <select class="formField" [ngClass]="{'defaultOption': input ===''}" [(ngModel)]="input" [name]="name" (ngModelChange)="onChange($event)" >
+      <option  value="" disabled selected >{{labelText}}</option>
       @for (option of options; track $index) {
-        <option [value]="option.value">{{option.label}}</option>
+        <option class="formFieldOption" [value]="option.value">{{option.label}}</option>
       }
     </select>
-    <label [for]="name" class="formLabel">{{labelText}}</label>
   </div>
+

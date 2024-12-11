@@ -1,7 +1,18 @@
-<div class="container">
-  <h2 class="record">{{record.value}}</h2>
+@if(record$ | async; as record){
 
-  @for(definition of record.definitions; track definition.definitionId){
-    <app-definition [definition]="definition"></app-definition>
-  }
-</div>
+  <div class="container">
+
+    <h2 class="record">{{record.value}}</h2>
+
+    @if(record.definitions){
+      @for(definition of record.definitions; track definition.definitionId){
+        <app-definition [recordId]="record.recordId" [definition]="definition"></app-definition>
+      }
+    }
+  </div>
+}
+@else{
+  record not load
+}
+
+

@@ -9,7 +9,6 @@
 .formField{
   width: 100%;
   border: 0;
-  border-bottom: 2px solid var(--shadow);
   outline: 0;
   font-size: 18px;
   color: var(--font-color);
@@ -17,57 +16,19 @@
   background: transparent;
   transition: border-color 0.2s;
   cursor: pointer;
-}
-
-.formField::placeholder{
-  color: transparent;
-}
-
-.formField:placeholder-shown + .formLabel{
-    font-size: 20px;
-    top: 20px;
-    color: var(--shadow);
-    font-weight:300;
-}
-
-.formField:placeholder-shown {
-  border-bottom: 2px solid var(--shadow);
-  font-weight:300;
-}
-
-.formLabel {
-  position: absolute;
-  top: 0;
-  display: block;
-  transition: 0.2s;
-  font-size: 14px;
-  color: var(--shadow);
-}
-
-.formLabel *{
-  margin: auto 5px;
-}
-
-.formField:focus + .formLabel{
-  position: absolute;
-  top: 0;
-  display: block;
-  transition: 0.2s;
-  font-size: 14px;
-  color: var(--secondary);
-  font-weight:700;
-}
-
-.formField:not(placeholder-shown) + .formLabel{
-  color: var(--secondary);
-  font-weight:700;
-}
-
-.formField:not(placeholder-shown), .formField:focus {
   border-bottom: 2px solid var(--secondary);
 }
 
-.exampleField{
-  width: 90%;
-  margin: 5px 15px;
+.formField:focus{
+  border-bottom: 2px solid var(--primary);
+}
+
+.defaultOption{
+  color: var(--shadow);
+  border-bottom: 2px solid var(--shadow);
+}
+
+.formFieldOption{
+  cursor: pointer;
+  color: var(--secondary);
 }

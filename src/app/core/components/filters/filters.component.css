@@ -1,0 +1,56 @@
+.cardContainer{
+  border-radius: 10px;
+  display: flex;
+  width: 90%;
+  justify-content: right;
+  box-shadow: 2px 2px 2px 2px rgb(0 0 0 / 20%);
+  margin: 10px auto;
+  padding:  10px;
+  position: relative;
+}
+
+.resetFilterButton{
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  align-self: center;
+  font-weight: 600;
+  color: var(--shadow);
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  border: 2px solid var(--shadow);
+  border-radius: 20px;
+  cursor: pointer;
+}
+.toggle{
+  margin: auto 5px;
+  height: 90% ;
+}
+
+.searchButton{
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  margin: auto 0 auto 10px;
+  position: relative;
+}
+
+.svg{
+  width: 22px;
+  fill: var(--shadow);
+}
+
+.searchButton::before{
+  content: '';
+  display: flex;
+  width: 1px;
+  height: 90%;
+  background-color:var(--shadow);
+  position: absolute;
+  left: -5px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ControlValueAccessor,  FormControl,  FormsModule,  NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor,  FormsModule,  NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SpainSVGComponent } from '../../../svg/spain-svg/spain-svg.component';
 import { EnglishSVGComponent } from '../../../svg/english-svg/english-svg.component';
 
@@ -20,13 +20,13 @@ type IconType = 'none' | 'spain' | 'english';
   ]
 })
 export class FormFieldComponent implements ControlValueAccessor{
-  
-  @Input() typeInput:string = "text";
+
+  @Input() typeInput = "text";
   @Input() name!:string;
-  @Input() labelText:string = "";
+  @Input() labelText= "";
   @Input() icon:IconType = 'none';
 
-  input: string = "";
+  input = "";
    onChange: any = () => {}
    onTouch: any = () => {}
 
@@ -37,9 +37,9 @@ export class FormFieldComponent implements ControlValueAccessor{
    registerOnTouched(fn: any): void {
      this.onTouch = fn;
    }
- 
+
    writeValue(input: string) {
      this.input = input;
    }
- 
+
 }

@@ -1,5 +1,16 @@
+.mainContainer{
+  position: relative;
+}
+
+.headerContainer{
+  height: fit-content;
+}
+
 .main_container{
-  min-height: 100vh;
+  min-height: 95svh;
+}
+
+.headerContainer, .main_container{
   max-width: 500px;
   margin: 0 auto;
   position: relative;
@@ -20,11 +31,43 @@
   width: 100%;
   backdrop-filter: blur(10px);
   background-color: var(--shadow);
+  z-index: 1000;
 }
 
+
+.mainContainer .main_container .modal{
+  overflow: hidden;
+}
+
+.menu{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+  max-width: 500px;
+  width: 100%;
+  min-height: 100vh;
+  backdrop-filter: blur(10px);
+  background-color: var(--shadow);
+}
 
 .float_button{
   position: fixed;
   bottom: 3rem;
   right: 3rem;
+}
+
+.loaderContainer{
+  position: fixed;
+
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.loader{
+
+  margin: auto;
 }

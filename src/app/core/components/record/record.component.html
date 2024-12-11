@@ -1,0 +1,18 @@
+<button (click)="toDetail(record)" class="record" [ngClass]="{
+  'wordTag': record.type ==='WORD',
+  'phrasalTag':record.type ==='PHRASAL',
+  'expressionTag':record.type ==='EXPRESSION'}">
+
+  <span class="recordValue">{{record.value}}</span>
+
+  @if(record.definitions.length > 0){
+    <div class="definitions">
+      @for (definitions of record.definitions; track $index) {
+        <span class="definitionText">{{definitions.translation}}</span>
+      }
+    </div>
+  }@else{
+    <span></span>
+  }
+  <span class="recordDate">{{record.modificationDate | datesPipe}}</span>
+</button>

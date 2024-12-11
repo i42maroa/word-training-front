@@ -1,1 +1,19 @@
-<p>landing-page works!</p>
+<div class="container">
+  <app-filters/>
+@if(isLoadingRecords | async){
+    <div class="loadingContainer">
+      <app-loader></app-loader>
+    </div>
+}
+@else{
+  @if(recordList | async; as paginationRecords){
+    <div class="recordListContainer">
+      @for (record of paginationRecords.items; track $index) {
+          <app-record [record]="record"></app-record>
+        }
+      </div>
+      <app-paginator/>
+  }
+}
+</div>
+
